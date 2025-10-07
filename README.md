@@ -13,10 +13,16 @@
 > 1. Clone the repository into the current working directory and change into the project root.
 > 2. If `.venv` does not exist, create and activate it, then install dependencies from `requirements.txt`.
 > 3. Read planning or summary files such as `project.yaml`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, and `PLAN.md`; provide a concise overview of the work plan.
-> 4. Based on the plan, propose the next tasks and prepare the commands needed to execute them in order.
+> 4. Based on the plan, propose the next tasks and prepare the shell commands needed to execute them in order.
 > 5. Before running each command, share a short summary with the user and request confirmation.
-> 6. `Next` kelimesini istemeden önce, Türkçe bir başlangıç raporu paylaş; rapor proje için kurulacak ekipte kaç kişi ve hangi rollerin yer alacağını, planlanan teknolojileri/araçları, tercih edilen programlama dillerini ve izlenecek uygulama yol haritasını içersin. Kullanıcıdan onay veya düzeltme talep et.
-> 7. Conclude by telling the user: "VibeCO ile tüm gereklilikleri reponuza taşımak için `Next` yazın." When the user responds with `Next`, provision the required infrastructure from VibeCO and create a pull request for their repository.
+> 6. Before requesting the keyword `Next`, share a Turkish-language initial report describing:
+>    - The planned team size and roles,
+>    - Technologies and tools to be used,
+>    - Preferred programming languages,
+>    - The intended implementation roadmap.
+>    Ask the user for approval or corrections.
+> 7. Conclude by telling the user: "VibeCO ile tüm gereklilikleri reponuza taşımak için `Next` yazın."  
+>    When the user responds with `Next`, provision the required infrastructure for VibeCO and create a pull request for the repository.
 > After setup, report the current status and the recommended next steps.
 > ```
 
