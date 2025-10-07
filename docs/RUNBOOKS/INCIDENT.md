@@ -1,6 +1,6 @@
-# Incident Runbook
-1) Sinyal (alert/Issue) → sınıflandır (P1..P4)
-2) İletişim kanalı → Bridge aç
-3) Etki/ölçüm → SLO ihlali?
-4) Mitigasyon → rollback/feature toggle
-5) Kapanış → postmortem ve aksiyon maddeleri
+# Incident runbook
+1) Signal (alert/issue) → classify (P1..P4)
+2) Communication channel → open a bridge
+3) Impact/measurement → verify SLO breach
+4) Mitigation → rollback/feature toggle
+5) Closure → postmortem and action items

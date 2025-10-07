@@ -1,0 +1,64 @@
+name: arylen-agent
+owner: "@Neudzulab"
+constraints:
+  deadline_weeks: 8
+  budget_level: medium
+  risk_profile: normal
+  timezone_overlap: 4
+required_capabilities:
+  - product_management
+  - ux_ui
+  - frontend_react
+  - backend_php
+  - backend_python
+  - devops_ci_cd
+  - data_engineering
+  - machine_learning
+  - qa_test_automation
+  - sre_observability
+  - security_appsec
+nice_to_have:
+  - mobile_flutter
+  - content_strategy
+  - localization
+scaling:
+  complexity: medium
+  team_max: 20
+definitions:
+  staffing_rules:
+    base_team:
+      product_manager: 1
+      engineering_manager: 1
+      tech_lead: 1
+      ux_ui_designer: 1
+      frontend_engineer: 2
+      backend_engineer_php: 1
+      backend_engineer_python: 1
+      devops_engineer: 1
+      data_engineer: 1
+      ml_engineer: 1
+      qa_engineer: 1
+      sre_engineer: 1
+      security_engineer: 0.5
+    multipliers:
+      complexity:
+        low: 0.8
+        medium: 1.0
+        high: 1.4
+      budget_level:
+        low: 0.9
+        medium: 1.0
+        high: 1.2
+      risk_profile:
+        low:
+          qa_engineer: 0.8
+          sre_engineer: 0.8
+          security_engineer: 0.5
+        normal:
+          qa_engineer: 1.0
+          sre_engineer: 1.0
+          security_engineer: 1.0
+        high:
+          qa_engineer: 1.3
+          sre_engineer: 1.3
+          security_engineer: 1.5

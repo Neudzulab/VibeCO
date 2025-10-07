@@ -1,4 +1,4 @@
 # Tech Radar
-- **Assess**: izlemeye değer
-- **Trial**: küçük alanlarda dene
-- **Adopt**: geniş kullan
+- **Assess**: worth monitoring
+- **Trial**: experiment in limited scope
+- **Adopt**: use broadly

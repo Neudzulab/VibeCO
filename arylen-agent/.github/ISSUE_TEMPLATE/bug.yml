@@ -1,0 +1,29 @@
+name: Bug report
+description: Use this template to report defects.
+title: "[Bug] <short title>"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Document the steps required to reproduce the bug.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Include logs, screenshots, or affected environments.

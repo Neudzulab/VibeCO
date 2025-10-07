@@ -1,18 +1,18 @@
-# Prod Plan (Günlük Stabilizasyon)
+# Production plan (daily stabilisation)
 
-Bu plan, prod ortamı için **günlük sağlık**, **log anomali**, **SLO/bütçe** ve **tech-radar** kontrollerini otomatik yürütür.
+This plan automates **daily health**, **log anomaly**, **SLO/budget**, and **tech radar** checks for the production environment.
 
-## Günlük Akış (her gün 06:00 TRT ~ 03:00 UTC)
+## Daily flow (every day 06:00 TRT ~ 03:00 UTC)
 - Health check → `configs/prod_targets.yaml`
-- Log taraması → `configs/log_rules.yaml`
-- SLO / Error-Budget → `docs/RUNBOOKS/SLO.md`
-- Tech Radar → `configs/tech_feeds.yaml`
-- Rapor → `reports/daily/YYYY-MM-DD.md`
-- Eşik aşıldıysa Issue aç + (opsiyonel) Slack bildirimi
+- Log scan → `configs/log_rules.yaml`
+- SLO / error budget → `docs/RUNBOOKS/SLO.md`
+- Tech radar → `configs/tech_feeds.yaml`
+- Report → `reports/daily/YYYY-MM-DD.md`
+- When thresholds are exceeded, open an issue and optionally send a Slack notification
 
 ## Checklist
-- [ ] Health end-point’ler tanımlı ve yetkiler hazır
-- [ ] Log kaynakları belirlendi / dış sistem entegrasyonu
-- [ ] SLO metrikleri ve hedefler tanımlı
-- [ ] Tech-radar kaynakları net
-- [ ] Bildirim kanalı (Slack/Email) ayarlı
+- [ ] Health endpoints defined with correct permissions
+- [ ] Log sources identified / external systems integrated
+- [ ] SLO metrics and targets documented
+- [ ] Tech radar sources confirmed
+- [ ] Notification channel (Slack/Email) configured
