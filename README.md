@@ -46,6 +46,20 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
    ```
 8. Publish your repository or share the rendered brief with your collaborators. Each time you receive a new command or the `Next` keyword, update the YAML and re-render.
 
+### Tek komutla başlangıç (Codex promptu)
+
+Bir Codex tabanlı asistana aşağıdaki promptu göndererek VibeCO'yu yerel çalışma dizinine klonlatabilir, bağımlılıkları kurdurabilir ve repo içindeki `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `project.yaml`, `PLAN.md` gibi plan dosyalarını inceleyip sonraki görevleri buna göre uyarlamasını sağlayabilirsiniz. Prompt, depo `https://github.com/Neudzulab/VibeCO.git` adresinden klonlamayı ve kurulum adımlarını otomatikleştirmeyi hedefler.
+
+```
+VibeCO projesine şu adresten başla: https://github.com/Neudzulab/VibeCO.git
+1. Depoyu çalışma dizinine klonla ve proje köküne geç.
+2. Eğer yoksa `.venv` sanal ortamı oluştur, etkinleştir ve `requirements.txt` içindeki bağımlılıkları kur.
+3. `project.yaml`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `PLAN.md` veya benzeri adlar taşıyan plan/sunum dosyalarını oku; iş planını özetle.
+4. Planı kullanarak sonraki adımlar için önerilen görev listesini çıkar ve gerekli komutları hazırlayıp sırala.
+5. Her komutu çalıştırmadan önce kullanıcıya özetle ve onay iste.
+Kurulum tamamlandıktan sonra mevcut durumun ve sonraki adımların raporunu paylaş.
+```
+
 ## Run locally
 
 Reproduce the daily stability workflow on your workstation:
