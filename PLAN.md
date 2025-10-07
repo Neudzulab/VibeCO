@@ -1,0 +1,12 @@
+## Refactor Flow
+- [ ] STEP-RF-001: Analyze target module and capture baseline metrics
+  - owner: @TechLead
+- [ ] STEP-RF-002: Lock external behaviour tests
+  - owner: @QAEngineer
+  - depends_on: STEP-RF-001
+- [ ] STEP-RF-003: Simplify internal structure (no public API change)
+  - owner: @BackendEngineerPHP
+  - depends_on: STEP-RF-002
+- [ ] STEP-RF-004: Validate metrics and scan for regressions
+  - owner: @QAEngineer
+  - depends_on: STEP-RF-003

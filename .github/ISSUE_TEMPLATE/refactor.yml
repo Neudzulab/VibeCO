@@ -1,0 +1,24 @@
+name: Refactor
+description: Improve internal quality while preserving behaviour
+title: "RF: <short title>"
+labels: ["refactor","tech-debt"]
+body:
+  - type: input
+    attributes: { label: Module / Area, description: "e.g. src/backend/php/Auth" }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Current Problem, description: "smell/debt, metrics" }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Target State, description: "expected metric improvement" }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Test Strategy, description: "evidence that behaviour stays stable" }
+    validations: { required: true }
+  - type: checkboxes
+    attributes:
+      label: Rules
+      options:
+        - label: Public API stays the same (or RFC attached)
+        - label: Coverage threshold will be met
+        - label: Rollback plan is prepared
