@@ -1,2 +1,2 @@
-# VibeCP
-Vibe Coding Projector
+# VibeCO
+Vibe Coding Orchestrator
