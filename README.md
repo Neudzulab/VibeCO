@@ -19,12 +19,12 @@
 > Then PROMPT the user with: 
 >   >> Type APPROVE to proceed, or reply with edits.
 > WAIT for explicit APPROVE (case-insensitive). Do not proceed without it.
-
+> 
 > - After APPROVE: perform all steps automatically and non-interactively.
 > - Milestone pacing: After completing each major milestone, PRINT a 1–2 sentence summary and PROMPT:
 >   >> Type Next to continue, or STOP to pause.
 > If the user types Next, continue to the next milestone; if STOP, pause.
-
+> 
 > OPERATING PRINCIPLES
 > - Idempotent and safe. Re-run friendly.
 > - OS support: Linux/macOS (bash) and Windows (PowerShell). Prefer bash if both are present.
