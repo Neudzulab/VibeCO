@@ -1,0 +1,20 @@
+name: Incident
+description: Prod etkileyen olay
+title: "INCIDENT: <başlık>"
+labels: ["incident", "prod"]
+body:
+  - type: dropdown
+    attributes:
+      label: Şiddet
+      options: ["P1", "P2", "P3", "P4"]
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Durum
+      description: "ne oldu?"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Mitigasyon / Rollback
