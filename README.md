@@ -1,5 +1,8 @@
 # VibeCO
 
+[![refactor-guard](https://github.com/Neudzulab/VibeCO/actions/workflows/refactor.yml/badge.svg)](./.github/workflows/refactor.yml)
+[![daily-stability](https://github.com/Neudzulab/VibeCO/actions/workflows/daily_stability.yml/badge.svg)](./.github/workflows/daily_stability.yml)
+
 Welcome to the 2025 edition of **VibeCO (Vibe Coding Orchestrator)**—a reusable project brief template designed so that every stakeholder immediately understands what you are building, why it matters, and how to unlock the next phase of work. Clone this repository, inject your own context, and publish a polished brief that keeps your team aligned from day zero.
 
 ## Why this repository exists
@@ -42,6 +45,18 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
    pytest
    ```
 8. Publish your repository or share the rendered brief with your collaborators. Each time you receive a new command or the `Next` keyword, update the YAML and re-render.
+
+## Run locally
+
+Reproduce the daily stability workflow on your workstation:
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+pytest -q
+# rehearse the daily stabilization locally
+python scripts/daily/run_all.py
+```
 
 ## ASCII workflow for new commands
 

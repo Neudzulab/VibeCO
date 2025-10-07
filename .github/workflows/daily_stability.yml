@@ -11,6 +11,7 @@ jobs:
       contents: write
       issues: write
     env:
+      OWNER: "@Neudzulab"
       PROD_BASE_URL: ${{ secrets.PROD_BASE_URL }}
       PROD_API_TOKEN: ${{ secrets.PROD_API_TOKEN }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -19,10 +20,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Check secrets
+        run: python scripts/daily/check_secrets.py || echo "secrets-missing" > .secmiss
       - run: python -m pip install --upgrade pip
+        if: hashFiles('.secmiss') == ''
       - run: pip install -r requirements.txt
+        if: hashFiles('.secmiss') == ''
       - name: Run daily stabilization suite
         run: python scripts/daily/run_all.py
+        if: hashFiles('.secmiss') == ''
       - name: Commit daily report
         run: |
           d=$(date -u +"%Y-%m-%d")
@@ -31,6 +37,7 @@ jobs:
           git add reports/daily/$d.md artifacts/*.json || true
           git commit -m "chore(prod): daily report $d" || echo "no changes"
           git push || true
+        if: hashFiles('.secmiss') == ''
       - name: Open issues on breach
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -52,18 +59,31 @@ jobs:
               token = env.get("GITHUB_TOKEN")
               if token:
                   env["GH_TOKEN"] = token
+              owner = env.get("OWNER", "")
+              assignee = owner.lstrip("@") if owner else ""
+              cmd = [
+                  "gh",
+                  "issue",
+                  "create",
+                  "-t",
+                  title,
+                  "-b",
+                  body,
+                  "-l",
+                  "stability,prod",
+              ]
+              if assignee:
+                  cmd.extend(["-a", assignee])
               try:
-                  subprocess.check_call([
-                      "gh",
-                      "issue",
-                      "create",
-                      "-t",
-                      title,
-                      "-b",
-                      body,
-                      "-l",
-                      "stability,prod",
-                  ], env=env)
+                  subprocess.check_call(cmd, env=env)
               except Exception as exc:
                   print(f"gh issue create failed: {exc}")
           PY
+        if: hashFiles('.secmiss') == ''
+      - name: Open missing-secrets issue
+        if: hashFiles('.secmiss') != ''
+        run: |
+          owner="${OWNER#@}"
+          gh issue create -t "Stability: missing secrets" -b "Please set PROD_BASE_URL & PROD_API_TOKEN" -l "prod,stability" ${owner:+-a "$owner"}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
