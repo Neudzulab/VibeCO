@@ -1,7 +1,24 @@
 # VibeCO
 
+![Version 1.0 badge](https://img.shields.io/badge/version-1.0-7c3aed?style=for-the-badge)
 [![refactor-guard](https://github.com/Neudzulab/VibeCO/actions/workflows/refactor.yml/badge.svg)](./.github/workflows/refactor.yml)
 [![daily-stability](https://github.com/Neudzulab/VibeCO/actions/workflows/daily_stability.yml/badge.svg)](./.github/workflows/daily_stability.yml)
+
+> [!IMPORTANT]
+> ### 🚀 One-command quick start (assistant prompt)
+> Send this prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the planning files (`PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `project.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
+>
+> ```text
+> Start working on the VibeCO project from https://github.com/Neudzulab/VibeCO.git.
+> 1. Clone the repository into the current working directory and change into the project root.
+> 2. If `.venv` does not exist, create and activate it, then install dependencies from `requirements.txt`.
+> 3. Read planning or summary files such as `project.yaml`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, and `PLAN.md`; provide a concise overview of the work plan.
+> 4. Based on the plan, propose the next tasks and prepare the commands needed to execute them in order.
+> 5. Before running each command, share a short summary with the user and request confirmation.
+> 6. `Next` kelimesini istemeden önce, Türkçe bir başlangıç raporu paylaş; rapor proje için kurulacak ekipte kaç kişi ve hangi rollerin yer alacağını, planlanan teknolojileri/araçları, tercih edilen programlama dillerini ve izlenecek uygulama yol haritasını içersin. Kullanıcıdan onay veya düzeltme talep et.
+> 7. Conclude by telling the user: "VibeCO ile tüm gereklilikleri reponuza taşımak için `Next` yazın." When the user responds with `Next`, provision the required infrastructure from VibeCO and create a pull request for their repository.
+> After setup, report the current status and the recommended next steps.
+> ```
 
 Welcome to the 2025 edition of **VibeCO (Vibe Coding Orchestrator)**—a reusable project brief template designed so that every stakeholder immediately understands what you are building, why it matters, and how to unlock the next phase of work. Clone this repository, inject your own context, and publish a polished brief that keeps your team aligned from day zero.
 
@@ -45,20 +62,6 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
    pytest
    ```
 8. Publish your repository or share the rendered brief with your collaborators. Each time you receive a new command or the `Next` keyword, update the YAML and re-render.
-
-### One-command quick start (assistant prompt)
-
-Send the following prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the repo’s planning files (`PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `project.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
-
-```
-Start working on the VibeCO project from https://github.com/Neudzulab/VibeCO.git.
-1. Clone the repository into the current working directory and change into the project root.
-2. If `.venv` does not exist, create and activate it, then install dependencies from `requirements.txt`.
-3. Read planning or summary files such as `project.yaml`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, and `PLAN.md`; provide a concise overview of the work plan.
-4. Based on the plan, propose the next tasks and prepare the commands needed to execute them in order.
-5. Before running each command, share a short summary with the user and request confirmation.
-After setup, report the current status and the recommended next steps.
-```
 
 ## Run locally
 
