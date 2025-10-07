@@ -1,0 +1,19 @@
+orchestrator:
+  strategy: fifo
+  conflict_avoidance: file_lock
+  next_command: python scripts/next.py
+roles:
+  CTO: {permissions: ["vision","approve_arch","risk"]}
+  EngineeringManager: {permissions: ["staffing","delivery","perf"]}
+  TechLead: {permissions: ["design","code_std","critical_review"]}
+  ProductManager: {permissions: ["roadmap","prioritize","acceptance"]}
+  UXUIDesigner: {permissions: ["research","wireframe","handoff"]}
+  FrontendEngineer: {permissions: ["implement","refactor","review"]}
+  BackendEngineerPHP: {permissions: ["implement","refactor","review"]}
+  BackendEngineerPython: {permissions: ["implement","refactor","review"]}
+  DevOpsEngineer: {permissions: ["ci_cd","iac","secrets"]}
+  DataEngineer: {permissions: ["etl","modeling","pipeline"]}
+  MLEngineer: {permissions: ["train","eval","deploy_ml"]}
+  QAEngineer: {permissions: ["test","gate","qa_signoff"]}
+  SREEngineer: {permissions: ["observability","reliability","slo"]}
+  SecurityEngineer: {permissions: ["appsec","threat_model","review"]}

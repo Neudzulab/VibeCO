@@ -1,0 +1,99 @@
+team:
+- role: BackendEngineerPHP
+  count: 1
+  seniority: senior
+  skills:
+  - php82
+  - framework_design
+  - api_security
+- role: BackendEngineerPython
+  count: 1
+  seniority: senior
+  skills:
+  - python
+  - asyncio
+  - data_services
+- role: DataEngineer
+  count: 1
+  seniority: senior
+  skills:
+  - etl
+  - data_modeling
+  - workflow_automation
+- role: DevOpsEngineer
+  count: 1
+  seniority: senior
+  skills:
+  - ci_cd
+  - iac
+  - containers
+- role: EngineeringManager
+  count: 1
+  seniority: senior
+  skills:
+  - resource_planning
+  - delivery_coaching
+  - feedback
+- role: FrontendEngineer
+  count: 2
+  seniority: senior
+  skills:
+  - react
+  - typescript
+  - testing
+- role: MLEngineer
+  count: 1
+  seniority: senior
+  skills:
+  - model_serving
+  - evaluation
+  - monitoring
+- role: ProductManager
+  count: 1
+  seniority: senior
+  skills:
+  - roadmapping
+  - stakeholder_alignment
+  - analytics
+- role: QAEngineer
+  count: 1
+  seniority: senior
+  skills:
+  - automation
+  - e2e
+  - quality_gates
+- role: SREEngineer
+  count: 1
+  seniority: senior
+  skills:
+  - observability
+  - incident_response
+  - slo_management
+- role: SecurityEngineer
+  count: 1
+  seniority: senior
+  skills:
+  - appsec
+  - threat_modeling
+  - compliance
+- role: TechLead
+  count: 1
+  seniority: principal
+  skills:
+  - architecture
+  - code_standards
+  - technical_reviews
+- role: UXUIDesigner
+  count: 1
+  seniority: senior
+  skills:
+  - research
+  - prototyping
+  - design_systems
+- role: CTO
+  count: 1
+  seniority: exec
+  skills:
+  - vision
+  - architecture
+  - risk_management

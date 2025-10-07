@@ -1,0 +1,29 @@
+name: Agent Proposal (RFC)
+description: Yeni bir otomasyon ajanı veya yetenek önerisi için kullanın.
+title: "[RFC] <kısa başlık>"
+labels: ["rfc", "discussion"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Arkaplan
+      description: Problem alanını ve mevcut durumu açıklayın.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Önerilen Çözüm
+      description: Ajana dair roller, yetenekler ve etkileşimleri anlatın.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Etki Analizi
+      description: Beklenen faydalar, riskler ve alternatifler.
+  - type: input
+    id: owner
+    attributes:
+      label: Sorumlu Rol
+      description: Ajansı yönetecek birincil rol.

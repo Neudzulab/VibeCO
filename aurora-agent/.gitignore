@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.envrc
+.DS_Store
+PLAN.lock
+.pytest_cache/
