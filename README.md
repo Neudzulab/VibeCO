@@ -157,6 +157,13 @@ Prefer `make render` for a one-line command that resolves paths correctly.
 
 Whenever you change `project.yaml`, re-render and commit both the data and output. This keeps your brief auditable.
 
+
+## Refactor Workflow
+- Open a ticket via the `Refactor` issue template
+- Branch naming: `rf/<area>/<short-topic>`
+- CI: `refactor-guard` runs automatically on the PR
+- Coverage must stay ≥ 85% and public API remains unchanged (RFC required otherwise)
+
 ## Directory layout
 
 ```
