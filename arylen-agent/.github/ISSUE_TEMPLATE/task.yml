@@ -1,0 +1,31 @@
+name: Task
+description: Use this template to plan a specific piece of work.
+title: "[Task] <short title>"
+labels: ["task"]
+body:
+  - type: input
+    id: role
+    attributes:
+      label: Role
+      description: Role accountable for the card (one of the entries under `agents/roles`).
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Briefly describe the work to be delivered.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Provide the success conditions as a bullet list.
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Tests
+      description: Outline the unit, integration, or manual test plan.

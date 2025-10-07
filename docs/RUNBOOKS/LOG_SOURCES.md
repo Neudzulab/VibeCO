@@ -1,5 +1,5 @@
-# Log Kaynakları
-- Uygulama: stdout/stderr, JSON line
+# Log sources
+- Application: stdout/stderr, JSON lines
 - Reverse proxy / gateway
-- DB yavaş sorgular
-- Güvenlik: WAF/IDS
+- Database slow queries
+- Security: WAF/IDS

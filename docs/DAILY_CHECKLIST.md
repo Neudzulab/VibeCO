@@ -1,6 +1,6 @@
-# Günlük Checklist
-- [ ] 5xx artışı yok
-- [ ] Uptime ve p95 SLO içinde
-- [ ] Loglarda yeni kritik pattern yok
-- [ ] Açık incident yok / kapatıldı
-- [ ] Tech-radar → anlamlı adaylar var/yok
+# Daily checklist
+- [ ] No increase in 5xx errors
+- [ ] Uptime and p95 latency within SLO
+- [ ] No new critical patterns in logs
+- [ ] No open incidents or all resolved
+- [ ] Tech radar → meaningful candidates identified

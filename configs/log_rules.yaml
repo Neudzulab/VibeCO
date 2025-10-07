@@ -1,6 +1,6 @@
 sources:
   - name: app_logs
-    # Örnek: dünkü rotate edilmiş dosyayı tarama
+    # Example: scan the rotated log file from the previous day
     path: "data/logs/app-${YYYY}-${MM}-${DD-1}.log"
   - name: proxy_logs
     path: "data/logs/proxy-${YYYY}-${MM}-${DD-1}.log"

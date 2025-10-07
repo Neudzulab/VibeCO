@@ -1,0 +1,29 @@
+name: Agent proposal (RFC)
+description: Use this template to propose a new automation agent or capability.
+title: "[RFC] <short title>"
+labels: ["rfc", "discussion"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Background
+      description: Describe the problem space and current state.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Explain the agent roles, capabilities, and interactions.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact analysis
+      description: Outline expected benefits, risks, and alternatives.
+  - type: input
+    id: owner
+    attributes:
+      label: Accountable role
+      description: Primary role responsible for operating the agent.
