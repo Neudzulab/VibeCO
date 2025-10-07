@@ -6,7 +6,7 @@
 
 > [!IMPORTANT]
 > ### 🚀 One-command quick start (assistant prompt)
-> Send this prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the planning files (`PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `project.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
+> Send this prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the planning files (`PROJECT.md`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
 >
 > ```text
 > Start working on the VibeCO project from https://github.com/Neudzulab/VibeCO.git.
