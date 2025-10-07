@@ -1,73 +1,111 @@
 # VibeCO
 Vibe Coding Orchestrator
 
-Nasıl kullanacağız (özet)
+# Reviewer
+Kod/doküman inceleme.
+FILE: agents/roles/QA.md
 
+markdown
+Kodu kopyala
+# QA
+Test ve kalite kapısı.
+FILE: .github/workflows/ci.yml
+
+yaml
+Kodu kopyala
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --upgrade pip
+      - run: pip install -r requirements.txt
+      - run: make ci
+FILE: .github/ISSUE_TEMPLATE/agent_proposal.yml
+
+yaml
+Kodu kopyala
+name: Agent Proposal (RFC)
+description: Bir agent'tan öneri / plan değişikliği
+title: "RFC: <kısa başlık>"
+labels: ["agent", "proposal"]
+body:
+  - type: textarea
+    attributes:
+      label: Problem / Fırsat
+      description: Neyi çözmek istiyoruz?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Öneri
+      description: Yaklaşım, kapsam ve etkiler
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Test Stratejisi
+      description: Başarıyı nasıl doğrulayacağız?
+    validations:
+      required: true
+FILE: .github/ISSUE_TEMPLATE/task.yml
+
+yaml
+Kodu kopyala
+name: Task
+description: Plan maddesine karşılık gelen iş
+title: "<STEP-ID> <kısa açıklama>"
+labels: ["task"]
+body:
+  - type: input
+    attributes:
+      label: STEP-ID
+      description: PLAN.md'deki adım kimliği (örn. STEP-003)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Kabul Kriterleri
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Testler
+    validations:
+      required: true
+🚀 Git ve Yayın Komutları (örnek)
+bash
+Kodu kopyala
+git init
+git add .
+git commit -m "chore: bootstrap agent plan template"
+
+# GitHub: gh CLI varsa
+gh repo create YOUR_GITHUB_USER_OR_ORG/agent-plan-template --public --source=. --push
+
+# gh yoksa (HTTPS):
+git branch -M main
+git remote add origin https://github.com/YOUR_GITHUB_USER_OR_ORG/agent-plan-template.git
+git push -u origin main
+✅ Doğrulama
+bash
+Kodu kopyala
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-
-make test ile temel testleri çalıştır.
-
-Planı ilerletmek için:
-
-python scripts/next.py --dry-run (gösterim)
-
-python scripts/next.py --lock (adımı üzerine al, çakışma kilidi koy)
-
-Çalış bittiğinde PR → review → make ci geçince merge.
-
-Agent önerileri için GitHub Issues → Agent Proposal (RFC) şablonunu kullan.
-
-Şablonun çekirdeği
-
-PLAN.md: “Tek gerçeklik.” Adımlar [ ] / [x] ile işaretlenir, STEP-00X ID’leri ve owner/depends_on alanları var.
-
-scripts/next.py: İlk tamamlanmamış adımı işaretler; --lock/--unlock ile çakışmayı önler.
-
-.github/workflows/ci.yml: PR ve push’ta lint+test koşar.
-
-agents/ ve roles/: Lead, Researcher, Coder, Reviewer, QA rollerinin alanları; agent_config.yaml orkestrasyon ipuçları.
-
-ISSUE_TEMPLATE/: Task ve Agent Proposal (RFC) şablonları.
-
-CODEOWNERS: İnceleme akışını rollerle bağlar.
-
-tests/ + src/: En basit örnek ve test—CI hattı hemen yeşersin.
-
-“Next” akışı (hafif sihir)
-
-Next → PLAN.md’deki ilk [ ] adımı [x] yapar (isteğe göre lock bırakır).
-
-Bu repo, planın yapıcısı: Planı yazıyor, ilerletiyor, kilitliyor, testlerle doğruluyor.
-
-Agent’lar yalnızca kendi lock’ladıkları adımları alır; kilit kalkmadan yeni adım yok → çatışma yok.
-
-Codex/Agent entegrasyonu
-
-Codex benzeri bir orkestratör bu repodaki PLAN.md’yi “truth source” olarak okuyabilir; agents/agent_config.yaml içindeki:
-
-strategy: fifo (ya da priority’e evrilebilir),
-
-conflict_avoidance: file_lock,
-
-next_command: python scripts/next.py
-alanlarıyla tetikleyici komut netleştirilmiştir.
-
-Agent, bir adımı üstlenirken ilgili Task issue’sunu bu STEP-ID ile açar, kabul kriterlerini ve test stratejisini doldurur.
-
-Disiplin (kısa ilkeler)
-
-PR’lar: 1 Reviewer + 1 QA onayı şart (CONTRIBUTING.md).
-
-Her adım “tanımlı test” içerir; CI geçmeyen birleşmez.
-
-README rozetleriyle ilerleme görünür; plan değişiklikleri PR ile akar.
-
-Bundan sonra?
-
-İstersen birlikte:
-
-PLAN.md’yi senin projene göre detaylandıralım (gereksinimler, POC hedefleri, kabul kriterleri).
+make ci
+python scripts/next.py --dry-run
+python scripts/next.py --lock     # ilk adımı kilitle
+python scripts/next.py            # adımı [x] yapar ve PLAN.md'yi günceller
+python scripts/next.py --unlock   # kilitleri temizler
 
 GitHub Actions’a otomatik “progress badge” güncellemesi ekleyelim.
 
