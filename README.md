@@ -3,8 +3,6 @@ Vibe Coding Orchestrator
 
 Nasıl kullanacağız (özet)
 
-GitHub’ta yeni public repo aç → bu ZIP’i yükle veya localde açıp push et.
-
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
