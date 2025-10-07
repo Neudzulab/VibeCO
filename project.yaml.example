@@ -1,0 +1,63 @@
+name: Sample Project
+slug: sample-project
+status: exploring
+tagline: Write a short, inspiring one-liner.
+owners:
+  - name: Ada Lovelace
+    role: Founder
+    contact: ada@example.com
+overview:
+  problem: What are you trying to solve?
+  solution: How will you solve it?
+  impact: What value will this deliver?
+values:
+  - name: Transparency
+    description: Communicate openly and share progress often.
+  - name: Quality
+    description: Deliver maintainable, well-tested software.
+experts:
+  - name: Dr. Grace Hopper
+    speciality: Systems architecture
+    advice: Keep interfaces decoupled and well documented.
+quality_gates:
+  - name: Automated tests
+    description: "pytest must pass before sharing updates."
+  - name: Peer review
+    description: A domain expert must approve each milestone.
+objectives:
+  - title: Launch an MVP
+    status: planned
+    progress_percent: 35
+    next_keyword_holder: Product sponsor
+    success_metrics:
+      - 50 early-access signups
+      - Collect qualitative feedback from 10 users
+    notes: Focus on the must-have journey only.
+  - title: Automate CI pipeline
+    status: planned
+    progress_percent: 10
+    next_keyword_holder: Platform lead
+    success_metrics:
+      - Tests run on every pull request
+      - Deployment button for staging
+roadmap:
+  - milestone: Foundation
+    due: 2025-03-15
+    owner: Ada Lovelace
+    focus: Authentication, project setup
+  - milestone: Beta
+    due: 2025-06-01
+    owner: Ada Lovelace
+    focus: Onboarding, feedback loop
+progress_updates:
+  - date: 2025-01-05
+    percent_complete: 25
+    summary: Core architecture reviewed by experts; waiting on Next keyword.
+  - date: 2025-02-12
+    percent_complete: 40
+    summary: MVP endpoints coded and passing pytest suite.
+artifacts:
+  code: https://github.com/your-user/your-repo
+  design: https://www.figma.com/file/.../your-designs
+  docs: https://docs.example.com/project
+notes: Include any additional context your stakeholders should know.
