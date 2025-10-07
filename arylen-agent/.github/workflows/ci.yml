@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PROJECT_DIR: arylen-agent
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -16,9 +18,23 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
+          PROJECT_DIR=${PROJECT_DIR:-.}
+          if [ -d "$PROJECT_DIR" ]; then
+              cd "$PROJECT_DIR"
+          fi
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Lint
-        run: make lint
+        run: |
+          PROJECT_DIR=${PROJECT_DIR:-.}
+          if [ -d "$PROJECT_DIR" ]; then
+              cd "$PROJECT_DIR"
+          fi
+          make lint
       - name: Test
-        run: make test
+        run: |
+          PROJECT_DIR=${PROJECT_DIR:-.}
+          if [ -d "$PROJECT_DIR" ]; then
+              cd "$PROJECT_DIR"
+          fi
+          make test
