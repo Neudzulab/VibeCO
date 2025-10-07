@@ -1,0 +1,6 @@
+* @Neudzulab
+src/frontend/** @VibeCO-FrontendEngineer @VibeCO-TechLead
+src/backend/php/** @VibeCO-BackendEngineerPHP @VibeCO-TechLead
+src/backend/python/** @VibeCO-BackendEngineerPython @VibeCO-TechLead
+tests/** @VibeCO-QAEngineer
+infra/** @VibeCO-DevOpsEngineer @VibeCO-SREEngineer @VibeCO-SecurityEngineer

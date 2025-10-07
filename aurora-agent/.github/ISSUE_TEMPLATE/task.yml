@@ -1,0 +1,31 @@
+name: Görev
+description: Belirli bir işi planlamak için kullanın.
+title: "[Task] <kısa başlık>"
+labels: ["task"]
+body:
+  - type: input
+    id: role
+    attributes:
+      label: Role
+      description: Karttan sorumlu rol (`agents/roles` dosyalarından biri).
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Özet
+      description: Yapılacak işin kısa tanımı.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Başarı koşullarını madde madde yazın.
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Tests
+      description: Birim, entegrasyon veya manuel test planı.
