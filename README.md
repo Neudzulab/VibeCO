@@ -101,7 +101,7 @@
 > - Summarize what was done, what needs attention, and concrete next actions.
 > - Prompt: 
 >   >> Type Next to proceed to the next milestone batch, or STOP to pause.
-
+>
 > EXECUTION DETAILS
 > - Always echo commands with a `$` prefix before running.
 > - On success: print `OK`.
