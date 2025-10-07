@@ -1,0 +1,19 @@
+name: Stability Finding
+description: Günlük taramada bulunan problem
+title: "STAB: <kısa başlık>"
+labels: ["stability", "prod"]
+body:
+  - type: textarea
+    attributes:
+      label: Bulgular
+      description: "log/health/SLO özeti"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Etki
+      description: "kullanıcı, gelir, SLA"
+  - type: textarea
+    attributes:
+      label: Aksiyonlar
+      description: "hemen/sonra"

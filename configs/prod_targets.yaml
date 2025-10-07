@@ -1,0 +1,18 @@
+targets:
+  - name: public-api
+    url: "${PROD_BASE_URL}/health"
+    method: GET
+    expect:
+      status: 200
+      contains: "ok"
+  - name: metrics
+    url: "${PROD_BASE_URL}/metrics"
+    method: GET
+    headers:
+      Authorization: "Bearer ${PROD_API_TOKEN}"
+    expect:
+      status: 200
+      contains_any: ["up 1", "process_"]
+thresholds:
+  max_error_rate_pct: 0.1
+  max_p95_ms: 300

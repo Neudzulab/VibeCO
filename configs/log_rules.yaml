@@ -1,0 +1,17 @@
+sources:
+  - name: app_logs
+    # Örnek: dünkü rotate edilmiş dosyayı tarama
+    path: "data/logs/app-${YYYY}-${MM}-${DD-1}.log"
+  - name: proxy_logs
+    path: "data/logs/proxy-${YYYY}-${MM}-${DD-1}.log"
+rules:
+  critical:
+    - "FATAL"
+    - "OutOfMemory"
+    - "segmentation fault"
+  high:
+    - "ERROR"
+    - "panic:"
+  security:
+    - "denied.*policy"
+    - "SQL injection"

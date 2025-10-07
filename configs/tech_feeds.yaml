@@ -1,0 +1,19 @@
+feeds:
+  - name: awesome-ml-tools
+    url: "https://github.com/topics/machine-learning?o=desc&s=updated"
+  - name: php-news
+    url: "https://www.php.net/feed.atom"
+  - name: frontend-trends
+    url: "https://frontendfoc.us/rss"
+keywords:
+  adopt:
+    - "LTS"
+    - "CVE fix"
+  assess:
+    - "experimental"
+    - "alpha"
+  trial:
+    - "beta"
+    - "rc"
+max_items_per_feed: 10
+timeout_seconds: 20

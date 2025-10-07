@@ -1,0 +1,17 @@
+name: Tech Proposal (Agent)
+description: Yeni teknoloji önerisi / değerlendirme
+title: "TECH: <kısa başlık>"
+labels: ["agent", "tech-radar"]
+body:
+  - type: input
+    attributes:
+      label: Kaynak link
+  - type: dropdown
+    attributes:
+      label: Aşama
+      options: ["Assess", "Trial", "Adopt"]
+  - type: textarea
+    attributes:
+      label: Gerekçe / Etki / Risk
+    validations:
+      required: true
