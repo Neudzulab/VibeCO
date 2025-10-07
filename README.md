@@ -21,7 +21,7 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
 - **Rendering utility** (`scripts/render.py`) with a Makefile target for repeatable builds.
 - **Pytest suite** validating the renderer’s core behaviours, so the workflow stays trustworthy.
 
-## Quick start (2025 workflow)
+## Quick start
 
 1. Fork or clone this repository.
 2. Create a virtual environment and install dependencies:
