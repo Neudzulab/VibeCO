@@ -20,6 +20,26 @@ def test_load_project_data_requires_mapping(tmp_path: Path) -> None:
     assert "mapping" in str(excinfo.value)
 
 
+def test_load_project_data_missing_file_suggests_example(tmp_path: Path) -> None:
+    data_file = tmp_path / "project.yaml"
+    (tmp_path / "project.yaml.example").write_text("{}", encoding="utf-8")
+
+    with pytest.raises(SystemExit) as excinfo:
+        load_project_data(data_file)
+
+    assert "Copy it from" in str(excinfo.value)
+
+
+def test_load_project_data_reports_yaml_error(tmp_path: Path) -> None:
+    data_file = tmp_path / "project.yaml"
+    data_file.write_text("invalid: [unterminated", encoding="utf-8")
+
+    with pytest.raises(SystemExit) as excinfo:
+        load_project_data(data_file)
+
+    assert "Unable to parse" in str(excinfo.value)
+
+
 def test_render_template_includes_progress_sections(tmp_path: Path) -> None:
     template_path = tmp_path / "template.md"
     template_path.write_text(
