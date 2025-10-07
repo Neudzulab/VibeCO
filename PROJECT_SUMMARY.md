@@ -4,7 +4,7 @@
 
 **Current status:** Exploring
 **Owners**
-- Leyla Demir — Product lead (<leyla@example.com>)
+- Leyla Demir — Product lead (<leyla@example.com>) 
 ## Overview
 - **Problem**: What are you trying to solve?
 - **Solution**: How will you solve it?

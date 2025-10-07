@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+from typing import Any
 
 import yaml
 from jinja2 import Environment, FileSystemLoader
@@ -37,11 +38,22 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def load_project_data(path: Path) -> dict:
+def load_project_data(path: Path) -> dict[str, Any]:
     if not path.exists():
-        raise SystemExit(f"Project data not found: {path}. Create it from project.yaml.example first.")
-    with path.open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle) or {}
+        example_path = Path(f"{path}.example")
+        suggestion = (
+            f" Copy it from {example_path} first."
+            if example_path.exists()
+            else " Create it from project.yaml.example first."
+        )
+        raise SystemExit(f"Project data not found: {path}.{suggestion}")
+
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            data = yaml.safe_load(handle) or {}
+    except yaml.YAMLError as exc:  # pragma: no cover - defensive branch
+        raise SystemExit(f"Unable to parse YAML file {path}: {exc}") from exc
+
     if not isinstance(data, dict):
         raise SystemExit("project.yaml must contain a mapping at the top level.")
     return data

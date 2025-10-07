@@ -13,7 +13,7 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
 
 ## What’s included
 
-- **Structured data model (`project.yaml`)** covering objectives, roadmap, experts, quality gates, and progress percentages.
+- **Structured data model (`project.yaml`)** covering objectives, roadmap, experts, quality gates, and progress percentages with fictional sample contributors.
 - **Markdown rendering template** (`docs/project_summary_template.md`) that transforms the data into a public-friendly briefing.
 - **Rendering utility** (`scripts/render.py`) with a Makefile target for repeatable builds.
 - **Pytest suite** validating the renderer’s core behaviours, so the workflow stays trustworthy.
@@ -27,7 +27,7 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
    source .venv/bin/activate
    pip install -r requirements.txt
    ```
-3. Copy and personalize the project data:
+3. Copy and personalize the project data (a starter `project.yaml` is already included so you can skip this step unless you want a clean slate):
    ```bash
    cp project.yaml.example project.yaml
    ```
@@ -76,9 +76,9 @@ slug: sample-project
 status: exploring
 tagline: Write a short, inspiring one-liner.
 owners:
-  - name: Ada Lovelace
-    role: Founder
-    contact: ada@example.com
+  - name: Leyla Demir
+    role: Product lead
+    contact: leyla@example.com
 overview:
   problem: What are you trying to solve?
   solution: How will you solve it?
@@ -89,7 +89,7 @@ values:
   - name: Quality
     description: Deliver maintainable, well-tested software.
 experts:
-  - name: Dr. Grace Hopper
+  - name: Dr. Mira Byte
     speciality: Systems architecture
     advice: Keep interfaces decoupled and well documented.
 quality_gates:
@@ -116,11 +116,11 @@ objectives:
 roadmap:
   - milestone: Foundation
     due: 2025-03-15
-    owner: Ada Lovelace
+    owner: Leyla Demir
     focus: Authentication, project setup
   - milestone: Beta
     due: 2025-06-01
-    owner: Ada Lovelace
+    owner: Leyla Demir
     focus: Onboarding, feedback loop
 progress_updates:
   - date: 2025-01-05

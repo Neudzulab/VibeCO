@@ -16,7 +16,7 @@ refactor-test:
 
 refactor-metrics:
 	python - <<'PY'
-print("metrics: TODO integrate radon/phpmd etc.")
-PY
+	print("metrics: TODO integrate radon/phpmd etc.")
+	PY
 
 refactor-ci: refactor-test refactor-metrics
