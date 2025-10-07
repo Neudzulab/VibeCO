@@ -46,6 +46,20 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
    ```
 8. Publish your repository or share the rendered brief with your collaborators. Each time you receive a new command or the `Next` keyword, update the YAML and re-render.
 
+### One-command quick start (assistant prompt)
+
+Send the following prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the repo’s planning files (`PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `project.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
+
+```
+Start working on the VibeCO project from https://github.com/Neudzulab/VibeCO.git.
+1. Clone the repository into the current working directory and change into the project root.
+2. If `.venv` does not exist, create and activate it, then install dependencies from `requirements.txt`.
+3. Read planning or summary files such as `project.yaml`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, and `PLAN.md`; provide a concise overview of the work plan.
+4. Based on the plan, propose the next tasks and prepare the commands needed to execute them in order.
+5. Before running each command, share a short summary with the user and request confirmation.
+After setup, report the current status and the recommended next steps.
+```
+
 ## Run locally
 
 Reproduce the daily stability workflow on your workstation:
