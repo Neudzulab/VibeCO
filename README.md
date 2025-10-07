@@ -46,18 +46,18 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
    ```
 8. Publish your repository or share the rendered brief with your collaborators. Each time you receive a new command or the `Next` keyword, update the YAML and re-render.
 
-### Tek komutla başlangıç (Codex promptu)
+### One-command quick start (assistant prompt)
 
-Bir Codex tabanlı asistana aşağıdaki promptu göndererek VibeCO'yu yerel çalışma dizinine klonlatabilir, bağımlılıkları kurdurabilir ve repo içindeki `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `project.yaml`, `PLAN.md` gibi plan dosyalarını inceleyip sonraki görevleri buna göre uyarlamasını sağlayabilirsiniz. Prompt, depo `https://github.com/Neudzulab/VibeCO.git` adresinden klonlamayı ve kurulum adımlarını otomatikleştirmeyi hedefler.
+Send the following prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the repo’s planning files (`PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `project.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
 
 ```
-VibeCO projesine şu adresten başla: https://github.com/Neudzulab/VibeCO.git
-1. Depoyu çalışma dizinine klonla ve proje köküne geç.
-2. Eğer yoksa `.venv` sanal ortamı oluştur, etkinleştir ve `requirements.txt` içindeki bağımlılıkları kur.
-3. `project.yaml`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `PLAN.md` veya benzeri adlar taşıyan plan/sunum dosyalarını oku; iş planını özetle.
-4. Planı kullanarak sonraki adımlar için önerilen görev listesini çıkar ve gerekli komutları hazırlayıp sırala.
-5. Her komutu çalıştırmadan önce kullanıcıya özetle ve onay iste.
-Kurulum tamamlandıktan sonra mevcut durumun ve sonraki adımların raporunu paylaş.
+Start working on the VibeCO project from https://github.com/Neudzulab/VibeCO.git.
+1. Clone the repository into the current working directory and change into the project root.
+2. If `.venv` does not exist, create and activate it, then install dependencies from `requirements.txt`.
+3. Read planning or summary files such as `project.yaml`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, and `PLAN.md`; provide a concise overview of the work plan.
+4. Based on the plan, propose the next tasks and prepare the commands needed to execute them in order.
+5. Before running each command, share a short summary with the user and request confirmation.
+After setup, report the current status and the recommended next steps.
 ```
 
 ## Run locally
