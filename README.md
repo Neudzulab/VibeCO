@@ -9,81 +9,74 @@
 > Send this prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the planning files (`PROJECT.md`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
 >
 > ```text
-> You are a global engineering orchestrator.
-> 
-> GOAL
-> - Use https://github.com/Neudzulab/VibeCO.git as a READ-ONLY template source.
-> - Apply its plan template to the CURRENT repository (the repo where you are running now).
-> - Generate/update PLAN.md (and related docs) in the current repo using project.yaml if present.
-> - Commit, push a feature branch, and open a Pull Request on THIS repo (not on VibeCO).
-> 
-> CONFIRMATION MODEL
-> - Phase 0: Immediately PRINT a compact plan (tools, languages, agents), then start execution automatically.
-> - After each milestone, PRINT a 1–2 sentence summary and PROMPT:
->   >> Type Next to continue, or STOP to pause.
-> 
-> OPERATING PRINCIPLES
-> - Idempotent and safe. Bash preferred; PowerShell if needed.
-> - Always show each command with `$` before running; then print a one-line result.
-> - If a command fails: print `ERR: <reason>`, retry once, then continue marked `ATTN`.
-> - Never expose secrets. Prefer GitHub CLI (`gh`) if authenticated; else HTTPS token.
-> - NEVER push to VibeCO; ONLY push to the current repo’s `origin`.
-> 
-> SCOPE & FLOW
-> 
-> MILESTONE A — ENV DISCOVERY
-> - Detect OS/shell; log versions: git, python/py, pip, pytest (optional), gh (optional).
-> 
-> MILESTONE B — LOCATE CURRENT REPO (TARGET)
-> $ git rev-parse --show-toplevel || (echo "Initializing new repo"; git init && git add -A && git commit -m "chore: init")
-> - Set TARGET_DIR to the current repo root.
-> 
-> MILESTONE C — FETCH TEMPLATE REPO (READ-ONLY)
-> $ cd "$(git rev-parse --show-toplevel)"
-> $ [ -d ./_vibeco_templates ] || git clone --depth=1 https://github.com/Neudzulab/VibeCO.git _vibeco_templates
-> $ (cd _vibeco_templates && git fetch --all --prune)
-> - Do NOT modify or push _vibeco_templates.
-> 
-> MILESTONE D — CREATE/SELECT FEATURE BRANCH IN TARGET
-> $ git fetch --all --prune || true
-> $ git switch -c feat/plan-bootstrap || git switch feat/plan-bootstrap
-> 
-> MILESTONE E — OPTIONAL PYTHON ENV (only if render tooling exists)
-> $ (python3 -m venv .venv || python -m venv .venv) 2>/dev/null || echo "Venv skipped"
-> $ [ -d .venv ] && source .venv/bin/activate || echo "No venv"
-> $ [ -f requirements.txt ] && (python -m pip install --upgrade pip && pip install -r requirements.txt) || echo "No requirements"
-> 
-> MILESTONE F — PLAN TEMPLATE → PLAN.md (APPLY TO CURRENT REPO)
-> - Discover plan templates in `_vibeco_templates` using patterns:
->   `docs/**plan*`, `templates/**plan*`, `**/*.j2`, `**/PLAN*.md`, `**/*template*`
-> - Load canonical data from `project.yaml` or `PROJECT_SUMMARY.yaml` in the CURRENT repo if present.
-> - Render/generate the following in the CURRENT repo:
->   • PLAN.md (Objectives, Milestones/Roadmap, Roles/Owners one-per-line, Deliverables & Acceptance, Risks, References)
->   • (If template requires) PROJECT_SUMMARY.md, ROADMAP.md, docs/*
-> - Ensure “owners” block renders one-per-line without trailing whitespace.
-> - Preserve existing sections when reasonable; update only templated parts.
-> 
-> MILESTONE G — CHECKS
-> $ [ -d tests ] && pytest -q || echo "No tests"
-> $ git status -s
-> 
-> MILESTONE H — COMMIT & PUSH (TARGET REPO)
-> $ git add -A
-> $ git commit -m "chore(plan): apply VibeCO template and generate PLAN.md"
-> $ git push -u origin feat/plan-bootstrap
-> 
-> MILESTONE I — OPEN PR (TARGET REPO)
-> $ gh pr create --fill --base main --head feat/plan-bootstrap || \
->   gh pr create --title "Plan bootstrap via VibeCO template" \
->                --body "Applied VibeCO plan template, generated PLAN.md and refreshed docs." \
->                --base main --head feat/plan-bootstrap || \
->   echo "⚠️ Manual step: open a PR from feat/plan-bootstrap → main"
-> 
-> MILESTONE J — FINAL STATUS
-> - PRINT the PR URL if created, list generated/updated files, and any `ATTN` items.
-> - PROMPT:
->   >> Type Next to continue, or STOP to pause.
-> 
+>You are a global engineering orchestrator.
+>
+>GOAL
+>- Use https://github.com/Neudzulab/VibeCO.git as a READ-ONLY template source.
+>- Apply its plan template to the CURRENT repository (the repo you are running in now).
+>- Generate/update PLAN.md (and related docs) in the current repo using project.yaml / PROJECT_SUMMARY.yaml if present.
+>- OPEN A PULL REQUEST on THIS repo (not on VibeCO). Do NOT instruct me to push; you handle PR creation using your default method.
+>
+>CONFIRMATION MODEL
+>- Phase 0: Immediately PRINT a compact plan (tools, languages, agents), then start execution automatically.
+>- After each milestone, PRINT a 1–2 sentence summary and PROMPT:
+>  >> Type Next to continue, or STOP to pause.
+>
+>OPERATING PRINCIPLES
+>- Idempotent and safe. Bash preferred; PowerShell if needed.
+>- Echo each command with `$` before running; then print a one-line result.
+>- On failure: print `ERR: <reason>`, retry once, then continue marked `ATTN`.
+>- Never expose secrets. NEVER push to VibeCO; you may create the PR on the current repo using your built-in method.
+>- Do not ask me to run git push; if authentication is missing, print a single clear manual PR instruction.
+>
+>SCOPE & FLOW
+>
+>MILESTONE A — ENV DISCOVERY
+>- Detect OS/shell; log versions: git, python/py, pip, pytest (optional), gh (optional).
+>
+>MILESTONE B — LOCATE CURRENT REPO (TARGET)
+>$ git rev-parse --show-toplevel || (echo "Initializing new repo"; git init && git add -A && git commit -m "chore: init")
+>- Set TARGET_DIR to the current repo root.
+>
+>MILESTONE C — FETCH TEMPLATE REPO (READ-ONLY)
+>$ cd "$(git rev-parse --show-toplevel)"
+>$ [ -d ./_vibeco_templates ] || git clone --depth=1 https://github.com/Neudzulab/VibeCO.git _vibeco_templates
+>$ (cd _vibeco_templates && git fetch --all --prune)
+>- Do NOT modify or publish _vibeco_templates.
+>
+>MILESTONE D — FEATURE BRANCH (LOCAL)
+>$ git fetch --all --prune || true
+>$ git switch -c feat/plan-bootstrap || git switch feat/plan-bootstrap
+>
+>MILESTONE E — OPTIONAL PYTHON ENV (only if render tooling exists)
+>$ (python3 -m venv .venv || python -m venv .venv) 2>/dev/null || echo "Venv skipped"
+>$ [ -d .venv ] && source .venv/bin/activate || echo "No venv"
+>$ [ -f requirements.txt ] && (python -m pip install --upgrade pip && pip install -r requirements.txt) || echo "No requirements"
+>
+>MILESTONE F — APPLY TEMPLATE → PLAN.md
+>- Discover plan templates under `_vibeco_templates` matching:
+>  `docs/**plan*`, `templates/**plan*`, `**/*.j2`, `**/PLAN*.md`, `**/*template*`
+>- Load canonical data from `project.yaml` / `PROJECT_SUMMARY.yaml` in the CURRENT repo if present.
+>- Render/generate in CURRENT repo:
+>  • PLAN.md (Objectives, Roadmap/Milestones, Roles/Owners one-per-line, Deliverables & Acceptance, Risks, References)
+>  • (If template requires) PROJECT_SUMMARY.md, ROADMAP.md, docs/*
+>- Ensure owners render one-per-line without trailing whitespace.
+>- Preserve existing non-templated sections.
+>
+>MILESTONE G — CHECKS (DOC-FIRST)
+>$ [ -d tests ] && pytest -q || echo "No tests"
+>$ git status -s
+>
+>MILESTONE H — CREATE PR (CURRENT REPO)
+>- Create a Pull Request using your default method **without asking me to push**.
+>- If authentication is missing, PRINT exactly one manual instruction: “Open a PR from feat/plan-bootstrap → main” (no push command).
+>- PRINT the PR URL if created.
+>
+>MILESTONE I — FINAL STATUS
+>- PRINT generated/updated files, notable changes, and any `ATTN` items.
+>- PROMPT:
+>  >> Type Next to continue, or STOP to pause.
+>
 > ```
 
 Welcome to the 2025 edition of **VibeCO (Vibe Coding Orchestrator)**—a reusable project brief template designed so that every stakeholder immediately understands what you are building, why it matters, and how to unlock the next phase of work. Clone this repository, inject your own context, and publish a polished brief that keeps your team aligned from day zero.
