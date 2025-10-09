@@ -21,7 +21,7 @@
 >OPERATING PRINCIPLES
 >- Fully automated; non-interactive; idempotent and safe.
 >- Always show each command prefixed with `$` before running, then print a one-line result.
-- Use bash when available, PowerShell otherwise.
+>- Use bash when available, PowerShell otherwise.
 >- If a command fails, print `ERR: <reason>`, try one retry, then continue marked as `ATTN`.
 >- Never expose secrets. Prefer GitHub CLI (`gh`) if authenticated, else use HTTPS token.
 >- Default branch for work: `feat/vibeco-bootstrap`. Create if missing, never force-push.
