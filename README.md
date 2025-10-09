@@ -129,6 +129,10 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
    ```
 8. Publish your repository or share the rendered brief with your collaborators. Each time you receive a new command or the `Next` keyword, update the YAML and re-render.
 
+## Versioning policy
+
+Every merged pull request must produce a new semantic version tag starting from **`v0.1.0`**. Use the [versioning strategy](docs/VERSIONING_PLAN.md) to decide whether the change triggers a major, minor, or patch increment and include the planned version in the PR description before merging.
+
 ## Run locally
 
 Reproduce the daily stability workflow on your workstation:
