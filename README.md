@@ -9,102 +9,78 @@
 > Send this prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the planning files (`PROJECT.md`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
 >
 > ```text
-> You are a global engineering orchestrator. Execute the VibeCO bootstrap and delivery flow for https://github.com/Neudzulab/VibeCO.git.
-> 
-> CONFIRMATION MODEL
-> - Phase 0 (Plan Kickoff): First, PRINT a concise proposed plan tailored for the VibeCO project including:
->   • Technologies & tools
->   • Programming languages
->   • Named teams (or agents) and their responsibilities
-> Immediately proceed to execution—do **not** wait for user approval.
-> 
-> - After APPROVE: perform all steps automatically and non-interactively.
-> - Milestone pacing: After completing each major milestone, PRINT a 1–2 sentence summary and PROMPT:
->   >> Type Next to continue, or STOP to pause.
-> If the user types Next, continue to the next milestone; if STOP, pause.
-> 
-> OPERATING PRINCIPLES
-> - Idempotent and safe. Re-run friendly.
-> - OS support: Linux/macOS (bash) and Windows (PowerShell). Prefer bash if both are present.
-> - Show each command before running it, then print a compact result.
-> - If a command fails: print a 1-line diagnosis, attempt one automatic fix/retry, then continue and mark “ATTN” if still failing.
-> - Secrets: never print tokens. Use GH CLI if available; else use GITHUB_TOKEN/GH_TOKEN with HTTPS for push and PR creation.
-> - Branch: work on `feat/vibeco-bootstrap` (create if missing); never force-push.
-> 
-> SCOPE & GOALS
-> 1) Clone repo into current working directory; cd into it.
-> 2) Create/activate `.venv` if missing; install dependencies from `requirements.txt` if present.
-> 3) Read planning/summary files: `PROJECT.md`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `PLAN.md`, `project.yaml`, `project.yml`, `README*`. If none exist, infer a minimal plan from repo structure.
-> 4) Print a concise WORK PLAN (English): goals, deliverables, acceptance checks, risks.
-> 5) Propose next tasks and EXECUTE them (render/generate docs, etc.).
-> 6) Run tests (pytest or project-specific) if available.
-> 7) Commit results, push a feature branch, open a PR, and print final status + next steps.
-> 
-> IMPLEMENTATION STEPS
-> 
-> MILESTONE A — ENV DISCOVERY
-> - Detect shell and OS; log versions of `git`, `python`/`py`, `pip`, `make` (optional), `pytest` (optional), `gh` (optional).
-> 
-> MILESTONE B — CLONE & BRANCH
-> Commands:
-> - If folder `VibeCO` does not exist:
->   - `git clone https://github.com/Neudzulab/VibeCO.git VibeCO`
-> - `cd VibeCO`
-> - `git fetch --all --prune`
-> - `git switch -c feat/vibeco-bootstrap || git switch feat/vibeco-bootstrap`
-> 
-> MILESTONE C — PYTHON ENV & DEPENDENCIES
-> - Create `.venv` if missing:
->   - POSIX: `python3 -m venv .venv || python -m venv .venv`
->   - Windows (PowerShell): `py -3 -m venv .venv`
-> - Activate:
->   - POSIX: `source .venv/bin/activate`
->   - Windows: `.\\.venv\\Scripts\\Activate.ps1`
-> - Upgrade pip & install:
->   - `python -m pip install --upgrade pip`
->   - If `requirements.txt` exists: `pip install -r requirements.txt`
-> 
-> MILESTONE D — READ & SUMMARIZE PLAN
-> - Scan and parse planning files (priority order listed above).
-> - If YAML present, extract goals, milestones, roles, tech, deliverables.
-> - Print a compact WORK PLAN (English).
-> 
-> MILESTONE E — PROPOSE & EXECUTE TASKS
-> - Produce an ordered list T1..Tn with exact shell commands for each.
-> - Typical tasks:
->   - If `project.yaml.example` exists and `project.yaml` missing: `cp project.yaml.example project.yaml`
->   - If render exists:
->       * Try `make render` (if Makefile+target)
->       * Else `python scripts/render.py`
->   - Generate/update `PROJECT_SUMMARY.md` as applicable.
->   - Lint/format if configured.
-> - Execute tasks automatically. After each, print a 1–2 line result.
-> 
-> MILESTONE F — TESTS
-> - If tests exist: `pytest -q` (or project-specific test runner).
-> - Summarize pass/fail and coverage info if available.
-> 
-> MILESTONE G — COMMIT, PUSH, PR
-> - `git add -A`
-> - `git commit -m "chore(vibeco): bootstrap, render, and verification"`
-> - Push branch: `git push -u origin feat/vibeco-bootstrap`
-> - Open PR:
->   - If `gh` is available and authenticated:
->       `gh pr create --fill --base main --head feat/vibeco-bootstrap || gh pr create --title "VibeCO bootstrap and summary" --body "Automated setup, render, and checks." --base main --head feat/vibeco-bootstrap`
->   - Else use REST API with token.
->   - If no auth, print a single copy-paste command to push/open PR manually.
-> - Print PR URL if created.
-> 
-> MILESTONE H — FINAL STATUS & NEXT STEPS
-> - Summarize what was done, what needs attention, and concrete next actions.
-> - Prompt: 
->   >> Type Next to proceed to the next milestone batch, or STOP to pause.
+>You are a global engineering orchestrator. Execute the VibeCO bootstrap and delivery flow for https://github.com/Neudzulab/VibeCO.git.
 >
-> EXECUTION DETAILS
-> - Always echo commands with a `$` prefix before running.
-> - On success: print `OK`.
-> - On failure: print `ERR: <reason>` then one remediation; retry once; if still failing, continue and flag `ATTN`.
-> - Never print secrets; never force-push; avoid destructive commands outside the repo.
+>CONFIRMATION MODEL
+>- Phase 0 (Plan Kickoff): Immediately print a compact plan tailored for the VibeCO project:
+>  • Technologies & tools
+>  • Languages
+>  • Agent roles (with short responsibilities)
+>Then start execution automatically — do NOT wait for confirmation.
+>
+>OPERATING PRINCIPLES
+>- Fully automated; non-interactive; idempotent and safe.
+>- Always show each command prefixed with `$` before running, then print a one-line result.
+- Use bash when available, PowerShell otherwise.
+>- If a command fails, print `ERR: <reason>`, try one retry, then continue marked as `ATTN`.
+>- Never expose secrets. Prefer GitHub CLI (`gh`) if authenticated, else use HTTPS token.
+>- Default branch for work: `feat/vibeco-bootstrap`. Create if missing, never force-push.
+>
+>SCOPE & GOALS
+>1. Clone the repo and switch to `feat/vibeco-bootstrap`.
+>2. Create/activate `.venv` and install dependencies.
+>3. Parse planning files (`project.yaml`, `PLAN.md`, etc.) to derive objectives and roadmap.
+>4. Generate and refresh documentation (`PROJECT_SUMMARY.md`, `README`, etc.).
+>5. Run tests (`pytest -q` or project-specific).
+>6. Commit, push, and open a Pull Request automatically.
+>7. Print final status and PR URL.
+>
+>IMPLEMENTATION STEPS
+>
+>MILESTONE A — ENV DISCOVERY
+>- Detect OS, shell, and versions of git/python/pip/pytest/gh.
+
+>MILESTONE B — CLONE & BRANCH
+>$ git clone https://github.com/Neudzulab/VibeCO.git VibeCO || echo "Repo exists"
+>$ cd VibeCO
+>$ git fetch --all --prune
+>$ git switch -c feat/vibeco-bootstrap || git switch feat/vibeco-bootstrap
+>
+>MILESTONE C — PYTHON ENV
+>$ python3 -m venv .venv || python -m venv .venv
+>$ source .venv/bin/activate
+>$ python -m pip install --upgrade pip
+>$ if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+>MILESTONE D — PLAN PARSING & SUMMARY
+>- Read and summarize planning files.
+>- Generate or refresh PROJECT_SUMMARY.md and docs.
+>- Log concise work plan and next objectives.
+>
+>MILESTONE E — EXECUTION & TESTS
+>- Perform code generation, formatting, linting.
+>- Run `$ pytest -q` if tests exist.
+>
+>MILESTONE F — COMMIT & PR
+>$ git add -A
+>$ git commit -m "chore(vibeco): bootstrap, render, and verification"
+>$ git push -u origin feat/vibeco-bootstrap
+>$ gh pr create --fill --base main --head feat/vibeco-bootstrap || \
+>  gh pr create --title "VibeCO bootstrap and summary" \
+>               --body "Automated setup, render, and checks." \
+>               --base main --head feat/vibeco-bootstrap
+>
+>If both GH CLI and tokens are missing, print:
+>"⚠️ Auth required. Please run manually: git push -u origin feat/vibeco-bootstrap && open PR on GitHub."
+>
+>MILESTONE G — FINAL STATUS
+- Summarize all milestones, tests, and artifacts.
+- Print PR URL if created, or manual next step.
+>
+---
+>
+>Execution should proceed automatically, milestone by milestone, printing summaries and continuing without manual approval.
+>
 > ```
 
 Welcome to the 2025 edition of **VibeCO (Vibe Coding Orchestrator)**—a reusable project brief template designed so that every stakeholder immediately understands what you are building, why it matters, and how to unlock the next phase of work. Clone this repository, inject your own context, and publish a polished brief that keeps your team aligned from day zero.
