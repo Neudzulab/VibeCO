@@ -39,7 +39,7 @@
 >
 >MILESTONE A — ENV DISCOVERY
 >- Detect OS, shell, and versions of git/python/pip/pytest/gh.
-
+>
 >MILESTONE B — CLONE & BRANCH
 >$ git clone https://github.com/Neudzulab/VibeCO.git VibeCO || echo "Repo exists"
 >$ cd VibeCO
@@ -51,7 +51,7 @@
 >$ source .venv/bin/activate
 >$ python -m pip install --upgrade pip
 >$ if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
+>
 >MILESTONE D — PLAN PARSING & SUMMARY
 >- Read and summarize planning files.
 >- Generate or refresh PROJECT_SUMMARY.md and docs.
