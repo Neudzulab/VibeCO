@@ -159,6 +159,15 @@ When a new instruction arrives, follow this repeatable path to keep the brief re
 └────────────┘                     └────────────┘
 ```
 
+## Agent guardrails for completed work
+
+To avoid accidental regressions after a task is marked complete:
+
+- Treat every plan item with a checked (done) state as **locked**. Do not revisit, refactor, or optimize it unless a new instruction explicitly reopens the work.
+- Redirect agent attention to the active sources of truth—`README.md`, `PLAN.md`, and any scoped `AGENTS.md` files—before making changes.
+- Log and report if any automation or contributor attempts to modify a locked item so the project coordinator can intervene.
+- Use retrospectives to confirm the guardrails remain effective and that agents continue progressing on active tasks instead of revisiting completed ones.
+
 Refer back to this diagram whenever you iterate—the `Next` keyword gates your advancement to the next milestone.
 
 ## Project data structure
