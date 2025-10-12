@@ -23,3 +23,16 @@
 - [ ] STEP-PH-004: Run a retrospective to confirm agents no longer revisit done tasks
   - owner: @ProjectCoordinator
   - depends_on: STEP-PH-003
+
+## Revizyon İş Yönetimi
+- [ ] STEP-RY-001: Eski planları gözden geçirerek doğruluğunu teyit et ve revizyon kapsamına al
+  - owner: @ProjectCoordinator
+- [ ] STEP-RY-002: Çakışan ve karışmış plan yapısını yeniden düzenle, kritik bağımlılıkları haritalandır
+  - owner: @ProjectCoordinator
+  - depends_on: STEP-RY-001
+- [ ] STEP-RY-003: Tamamlanmış ancak test veya onay süreçleri eksik kalan işleri tespit et
+  - owner: @QAEngineer
+  - depends_on: STEP-RY-002
+- [ ] STEP-RY-004: Revize edilmiş plana göre yeni zamanlama ve sorumlulukları tanımla
+  - owner: @TechLead
+  - depends_on: STEP-RY-003
