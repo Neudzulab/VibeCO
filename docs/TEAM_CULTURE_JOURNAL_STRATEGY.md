@@ -44,3 +44,5 @@
 - Evaluate journal effectiveness through the quarterly "culture ecosystem" retrospective.
 - Generate trend reports with NLP-powered sentiment analysis and share the findings.
 - Review unused template fields annually and retire them if necessary.
+- Partner with the Agent Honor Roll Program to spotlight culture journal highlights; entries that demonstrate exceptional teamwork
+  or resilience become adaylık kaydı için önerilir ve ilgili agent'ın `⭐` sayaçları güncellenir.
