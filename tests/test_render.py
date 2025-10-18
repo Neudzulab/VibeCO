@@ -7,7 +7,14 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from scripts.render import load_project_data, render_template
+from scripts.render import (
+    DEMO_MODE,
+    PRODUCTION_MODE,
+    ensure_mock_usage_allowed,
+    load_project_data,
+    render_template,
+    resolve_mode,
+)
 
 
 def test_load_project_data_requires_mapping(tmp_path: Path) -> None:
@@ -58,3 +65,44 @@ def test_render_template_includes_progress_sections(tmp_path: Path) -> None:
 
     assert "25%" in rendered
     assert "40%" in rendered
+
+
+def test_ensure_mock_usage_blocked_in_production(tmp_path: Path) -> None:
+    data = {"slug": "sample-project"}
+
+    with pytest.raises(SystemExit) as excinfo:
+        ensure_mock_usage_allowed(data, mode=PRODUCTION_MODE, data_path=tmp_path / "project.yaml")
+
+    assert "demo mode" in str(excinfo.value)
+
+
+def test_ensure_mock_usage_allowed_in_demo() -> None:
+    data = {"slug": "sample-project"}
+
+    # Should not raise
+    ensure_mock_usage_allowed(data, mode=DEMO_MODE, data_path=Path("project.yaml"))
+
+
+def test_resolve_mode_prefers_cli(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("VIBECO_MODE", "demo")
+
+    mode = resolve_mode("production")
+
+    assert mode == PRODUCTION_MODE
+
+
+def test_resolve_mode_reads_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("VIBECO_MODE", "demo")
+
+    mode = resolve_mode(None)
+
+    assert mode == DEMO_MODE
+
+
+def test_resolve_mode_rejects_invalid(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("VIBECO_MODE", "invalid")
+
+    with pytest.raises(SystemExit) as excinfo:
+        resolve_mode(None)
+
+    assert "Unsupported mode" in str(excinfo.value)
