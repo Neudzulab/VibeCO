@@ -1,35 +1,36 @@
 # Architecture Governance Playbook
 
-This playbook captures the principles we apply across VibeCO projects when multiple
-agents collaborate on the same codebase. It provides a reference implementation that
-future teams can adopt and tailor when they spin up new services.
+This playbook captures the standards we apply when multiple agents collaborate on
+the same VibeCO deployment. The goal is to keep architectural intent obvious,
+prevent “temporary” experiments from leaking into production code, and offer a
+repeatable blueprint that future project teams can copy.
 
-## 1. Test Hygiene and Relocation Flow
+## 1. Test hygiene and relocation flow
 
-1. **Audit non-standard tests** – Use `rg "(demo|manual|tmp|todo)"` within
-   production directories to locate exploratory code or temporary fixtures.
-2. **Decide the target suite** – For every discovered block, determine whether it
-   belongs to `tests/unit`, `tests/integration`, or `tests/e2e` based on its external
-   dependencies.
-3. **Move, then adapt** – Physically relocate the code into the proper suite and
-   adjust imports/fixtures. Remove orphaned helpers from production modules.
-4. **Lock behaviour** – Run `pytest -q` to confirm coverage and preserve baseline
-   assertions before continuing with refactors.
-5. **Document the move** – Update the associated file agent guides (see below) so the
-   rationale for the relocation stays discoverable.
+1. **Audit non-standard tests** – Search production folders with
+   `rg "(demo|manual|tmp|todo)"` to find exploratory code or temporary fixtures.
+2. **Pick the proper suite** – Decide whether the snippet belongs in
+   `tests/unit`, `tests/integration`, or `tests/e2e` based on its dependencies.
+3. **Move and adapt** – Relocate the block, update imports/fixtures, and remove
+   orphaned helpers left behind in production modules.
+4. **Lock behaviour** – Run `pytest -q` to re-establish the baseline assertions
+   before continuing with refactors.
+5. **Document the move** – Update the affected file agent guides so the
+   rationale stays discoverable for the next person.
 
-> **Tip:** Add a pre-commit hook that fails when files under `src/` or `scripts/`
-> contain `pytest`-style asserts or references to demo fixtures.
+> **Automation hint:** Add a pre-commit hook that fails when files under `src/`
+> or `scripts/` contain `pytest`-style asserts or references to demo fixtures.
 
-## 2. File Agent Guides
+## 2. File agent guides and modularisation
 
-Large or high-churn modules must begin with a short “agent guide” comment describing:
+Large or high-churn modules start with an “agent guide” comment describing:
 
 - **Purpose** – What the file owns and the boundaries it enforces.
-- **Key flows** – Entry points, orchestrated helpers, and downstream dependencies.
+- **Key flows** – Entry points, orchestrated helpers, and downstream
+  dependencies.
 - **Relevant tests** – Suites or fixtures that guard the behaviour.
 
-### Template
+Template:
 
 ```text
 # Agent Guide
@@ -40,39 +41,43 @@ Large or high-churn modules must begin with a short “agent guide” comment de
 #   - <path::test_name>
 ```
 
-When modifying the file, update the guide first, then the implementation. Reviewers
-check that the guide still matches reality.
+Whenever you touch a file, refresh the guide before changing the implementation.
+Prefer small modules over sprawling ones; if a guide spans more than a handful of
+bullets, split the implementation and have each file host its own guide.
+Supporting data or shared routines should live in helper modules that callers
+`import`, never copied inline.
 
-## 3. Port Mapping Registry
+## 3. Port mapping source of truth
 
-Maintain `docs/PORT_MAPPING.md` as the single source of truth for service ports.
-Every change to network bindings must update this file before merging.
+The canonical port inventory lives in **two** places and must stay in sync:
 
-Checklist for releases:
+- `configs/port_mapping.yaml` – Machine-readable snapshot for automated checks,
+  dashboards, and incident tooling.
+- `docs/PORT_MAPPING.md` – Human-facing explanation with verification steps and
+  operational context.
 
-- [ ] API gateway routes reflect the current microservice set.
-- [ ] Downstream services expose only the documented ports.
-- [ ] Deprecated ports are marked with the removal date and mitigation steps.
+Treat the port map as the first file to consult before adjusting the gateway or
+any microservice listener. When a change is required:
 
-## 4. Encouraging Smaller, Composable Files
+1. Propose the new values by editing the YAML.
+2. Mirror the update in the markdown table and include any operational notes.
+3. Update manifests (Docker Compose, Helm charts, Terraform, etc.) in the same
+   change list.
+4. Have reviewers confirm the YAML and markdown agree before merging.
+5. Publish the update via release notes and stand-up callouts.
 
-- Cap files at **~200 logical lines** where possible.
-- Extract reusable flows into helper modules under `src/<domain>/` and import them.
-- Prefer declarative configuration (YAML/TOML) instead of procedural constants in
-  Python scripts.
-- Highlight exceptions in the agent guide when a file must stay large.
+## 4. Automation & process hooks
 
-## 5. Automation & Process Hooks
-
-- **CI** – Add a job that validates agent guides exist for files over the line cap
-  and that the port mapping registry lists any exposed ports in Docker compose or
-  Kubernetes manifests.
-- **PR Template** – Require authors to tick boxes for:
+- **CI checks** – Validate that files over the line-count threshold contain an
+  agent guide, and that the YAML port mapping matches declared ports in
+  manifests.
+- **PR template** – Require authors to tick boxes for:
   - “Agent guide updated?”
-  - “Port mapping reviewed?”
+  - “Port mapping reviewed/updated?”
   - “Tests relocated if needed?”
-- **Monthly maintenance** – Run `scripts/refactor_guard.py` in report mode to list
-  files missing guides or containing demo artefacts.
+- **Monthly maintenance** – Run `scripts/refactor_guard.py --report` to list
+  files missing guides or containing demo artefacts, and compare the YAML port
+  map against live environments.
 
-By following this playbook we minimise architectural drift, keep demos isolated, and
-make onboarding smoother for new contributors.
+By following this playbook we minimise architectural drift, keep demos isolated,
+and make onboarding smoother for every contributor.

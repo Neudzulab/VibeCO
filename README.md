@@ -99,7 +99,8 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
 - **Architecture governance playbook** (`docs/ARCHITECTURE_GOVERNANCE.md`) that captures
   test hygiene, file agent guides, and automation hooks for future services.
 - **Port mapping registry** (`docs/PORT_MAPPING.md`) documenting the canonical network
-  bindings for microservices and the API gateway.
+  bindings for microservices and the API gateway, backed by
+  [`configs/port_mapping.yaml`](configs/port_mapping.yaml) for automation.
 
 ## Quick start
 
@@ -134,11 +135,12 @@ The top-level structure below captures the current operating architecture. Updat
 VibeCO/
 ├── arylen-agent/                # Local assistant orchestration assets
 ├── configs/                     # Configuration presets consumed by renderers and scripts
+│   └── port_mapping.yaml        # Machine-readable service-to-port bindings
 ├── docs/
 │   ├── RUNBOOKS/                # Operational playbooks
 │   ├── *.md                     # Engineering policies (code health, metrics, refactors, etc.)
 │   ├── ARCHITECTURE_GOVERNANCE.md # Agent guide, testing, and port registry rules
-│   ├── PORT_MAPPING.md          # Canonical service port bindings
+│   ├── PORT_MAPPING.md          # Human-readable registry (keep in sync with configs/port_mapping.yaml)
 │   └── project_summary_template # Rendering templates
 ├── scripts/
 │   ├── daily/                   # Daily stability workflows
