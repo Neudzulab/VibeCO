@@ -1,0 +1,17 @@
+name: Guard against demo TODO markers
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  demo-todo-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Run demo TODO scan
+        run: |
+          python scripts/ci/check_demo_todos.py
