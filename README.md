@@ -1,81 +1,91 @@
 # VibeCO
 
-![Version 1.0 badge](https://img.shields.io/badge/version-1.0-7c3aed?style=for-the-badge)
+![Version v0.6.0 badge](https://img.shields.io/badge/version-v0.6.0-7c3aed?style=for-the-badge)
 [![refactor-guard](https://github.com/Neudzulab/VibeCO/actions/workflows/refactor.yml/badge.svg)](./.github/workflows/refactor.yml)
 [![daily-stability](https://github.com/Neudzulab/VibeCO/actions/workflows/daily_stability.yml/badge.svg)](./.github/workflows/daily_stability.yml)
 
 > [!IMPORTANT]
-> ### 🚀 One-command quick start (assistant prompt)
-> Send this prompt to your preferred coding assistant to clone VibeCO into the current workspace, set up dependencies, review the planning files (`PROJECT.md`, `PROJECT_SUMMARY.md`, `PROJECT_SUMMARY.yaml`, `PLAN.md`, etc.), and tailor its follow-up tasks to match the plan. The prompt targets the repository at `https://github.com/Neudzulab/VibeCO.git`.
+> ### 🚀 One-command local quick start
+> Bootstrap the environment, install dependencies, and render the sample summary with a single command:
+>
+> ```bash
+> ./scripts/bootstrap.sh
+> ```
+>
+> The script creates (or reuses) `.venv`, installs `requirements.txt`, seeds `project.yaml` from the example if needed, and runs `make render` when available. Reactivate the environment later with `source .venv/bin/activate`.
+
+> [!TIP]
+> ### 🤖 Assistant-driven quick start
+> Prefer to delegate setup to an AI assistant? Use the following orchestration prompt so it can clone VibeCO into a disposable workspace, apply the planning template, and open a pull request on your active repository (not this template):
 >
 > ```text
->You are a global engineering orchestrator.
+> You are a global engineering orchestrator.
 >
->GOAL
->- Use https://github.com/Neudzulab/VibeCO.git as a READ-ONLY template source.
->- Apply its plan template to the CURRENT repository (the repo you are running in now).
->- Generate/update PLAN.md (and related docs) in the current repo using project.yaml / PROJECT_SUMMARY.yaml if present.
->- OPEN A PULL REQUEST on THIS repo (not on VibeCO). Do NOT instruct me to push; you handle PR creation using your default method.
+> GOAL
+> - Use https://github.com/Neudzulab/VibeCO.git as a READ-ONLY template source.
+> - Apply its plan template to the CURRENT repository (the repo you are running in now).
+> - Generate/update PLAN.md (and related docs) in the current repo using project.yaml / PROJECT_SUMMARY.yaml if present.
+> - OPEN A PULL REQUEST on THIS repo (not on VibeCO). Do NOT instruct me to push; you handle PR creation using your default method.
 >
->CONFIRMATION MODEL
->- Phase 0: Immediately PRINT a compact plan (tools, languages, agents), then start execution automatically.
->- After each milestone, PRINT a 1–2 sentence summary and PROMPT:
->  >> Type Next to continue, or STOP to pause.
+> CONFIRMATION MODEL
+> - Phase 0: Immediately PRINT a compact plan (tools, languages, agents), then start execution automatically.
+> - After each milestone, PRINT a 1–2 sentence summary and PROMPT:
+>   >> Type Next to continue, or STOP to pause.
 >
->OPERATING PRINCIPLES
->- Idempotent and safe. Bash preferred; PowerShell if needed.
->- Echo each command with `$` before running; then print a one-line result.
->- On failure: print `ERR: <reason>`, retry once, then continue marked `ATTN`.
->- Never expose secrets. NEVER push to VibeCO; you may create the PR on the current repo using your built-in method.
->- Do not ask me to run git push; if authentication is missing, print a single clear manual PR instruction.
+> OPERATING PRINCIPLES
+> - Idempotent and safe. Bash preferred; PowerShell if needed.
+> - Echo each command with `$` before running; then print a one-line result.
+> - On failure: print `ERR: <reason>`, retry once, then continue marked `ATTN`.
+> - Never expose secrets. NEVER push to VibeCO; you may create the PR on the current repo using your built-in method.
+> - Do not ask me to run git push; if authentication is missing, print a single clear manual PR instruction.
 >
->SCOPE & FLOW
+> SCOPE & FLOW
 >
->MILESTONE A — ENV DISCOVERY
->- Detect OS/shell; log versions: git, python/py, pip, pytest (optional), gh (optional).
+> MILESTONE A — ENV DISCOVERY
+> - Detect OS/shell; log versions: git, python/py, pip, pytest (optional), gh (optional).
 >
->MILESTONE B — LOCATE CURRENT REPO (TARGET)
->$ git rev-parse --show-toplevel || (echo "Initializing new repo"; git init && git add -A && git commit -m "chore: init")
->- Set TARGET_DIR to the current repo root.
+> MILESTONE B — LOCATE CURRENT REPO (TARGET)
+> $ git rev-parse --show-toplevel || (echo "Initializing new repo"; git init && git add -A && git commit -m "chore: init")
+> - Set TARGET_DIR to the current repo root.
 >
->MILESTONE C — FETCH TEMPLATE REPO (READ-ONLY)
->$ cd "$(git rev-parse --show-toplevel)"
->$ [ -d ./_vibeco_templates ] || git clone --depth=1 https://github.com/Neudzulab/VibeCO.git _vibeco_templates
->$ (cd _vibeco_templates && git fetch --all --prune)
->- Do NOT modify or publish _vibeco_templates.
+> MILESTONE C — FETCH TEMPLATE REPO (READ-ONLY)
+> $ cd "$(git rev-parse --show-toplevel)"
+> $ [ -d ./_vibeco_templates ] || git clone --depth=1 https://github.com/Neudzulab/VibeCO.git _vibeco_templates
+> $ (cd _vibeco_templates && git fetch --all --prune)
+> - Do NOT modify or publish _vibeco_templates.
 >
->MILESTONE D — FEATURE BRANCH (LOCAL)
->$ git fetch --all --prune || true
->$ git switch -c feat/plan-bootstrap || git switch feat/plan-bootstrap
+> MILESTONE D — FEATURE BRANCH (LOCAL)
+> $ git fetch --all --prune || true
+> $ git switch -c feat/plan-bootstrap || git switch feat/plan-bootstrap
 >
->MILESTONE E — OPTIONAL PYTHON ENV (only if render tooling exists)
->$ (python3 -m venv .venv || python -m venv .venv) 2>/dev/null || echo "Venv skipped"
->$ [ -d .venv ] && source .venv/bin/activate || echo "No venv"
->$ [ -f requirements.txt ] && (python -m pip install --upgrade pip && pip install -r requirements.txt) || echo "No requirements"
+> MILESTONE E — OPTIONAL PYTHON ENV (only if render tooling exists)
+> $ (python3 -m venv .venv || python -m venv .venv) 2>/dev/null || echo "Venv skipped"
+> $ [ -d .venv ] && source .venv/bin/activate || echo "No venv"
+> $ [ -f requirements.txt ] && (python -m pip install --upgrade pip && pip install -r requirements.txt) || echo "No requirements"
 >
->MILESTONE F — APPLY TEMPLATE → PLAN.md
->- Discover plan templates under `_vibeco_templates` matching:
->  `docs/**plan*`, `templates/**plan*`, `**/*.j2`, `**/PLAN*.md`, `**/*template*`
->- Load canonical data from `project.yaml` / `PROJECT_SUMMARY.yaml` in the CURRENT repo if present.
->- Render/generate in CURRENT repo:
->  • PLAN.md (Objectives, Roadmap/Milestones, Roles/Owners one-per-line, Deliverables & Acceptance, Risks, References)
->  • (If template requires) PROJECT_SUMMARY.md, ROADMAP.md, docs/*
->- Ensure owners render one-per-line without trailing whitespace.
->- Preserve existing non-templated sections.
+> MILESTONE F — APPLY TEMPLATE → PLAN.md
+> - Discover plan templates under `_vibeco_templates` matching:
+>   `docs/**plan*`, `templates/**plan*`, `**/*.j2`, `**/PLAN*.md`, `**/*template*`
+> - Load canonical data from `project.yaml` / `PROJECT_SUMMARY.yaml` in the CURRENT repo if present.
+> - Render/generate in CURRENT repo:
+>   • PLAN.md (Objectives, Roadmap/Milestones, Roles/Owners one-per-line, Deliverables & Acceptance, Risks, References)
+>   • (If template requires) PROJECT_SUMMARY.md, ROADMAP.md, docs/*
+> - Ensure owners render one-per-line without trailing whitespace.
+> - Preserve existing non-templated sections.
 >
->MILESTONE G — CHECKS (DOC-FIRST)
->$ [ -d tests ] && pytest -q || echo "No tests"
->$ git status -s
+> MILESTONE G — CHECKS (DOC-FIRST)
+> $ [ -d tests ] && pytest -q || echo "No tests"
+> $ git status -s
 >
->MILESTONE H — CREATE PR (CURRENT REPO)
->- Create a Pull Request using your default method **without asking me to push**.
->- If authentication is missing, PRINT exactly one manual instruction: “Open a PR from feat/plan-bootstrap → main” (no push command).
->- PRINT the PR URL if created.
+> MILESTONE H — CREATE PR (CURRENT REPO)
+> - Create a Pull Request using your default method **without asking me to push**.
+> - If authentication is missing, PRINT exactly one manual instruction: “Open a PR from feat/plan-bootstrap → main” (no push command).
+> - PRINT the PR URL if created.
 >
->MILESTONE I — FINAL STATUS
->- PRINT generated/updated files, notable changes, and any `ATTN` items.
->- PROMPT:
->  >> Type Next to continue, or STOP to pause.
+> MILESTONE I — FINAL STATUS
+> - PRINT generated/updated files, notable changes, and any `ATTN` items.
+> - PROMPT:
+>   >> Type Next to continue, or STOP to pause.
 >
 > ```
 
@@ -133,27 +143,33 @@ The top-level structure below captures the current operating architecture. Updat
 
 ```
 VibeCO/
-├── arylen-agent/                # Local assistant orchestration assets
-├── configs/                     # Configuration presets consumed by renderers and scripts
-│   └── port_mapping.yaml        # Machine-readable service-to-port bindings
+├── arylen-agent/                 # Local assistant orchestration assets and docs
+├── artifacts/                    # Generated outputs (keep tidy; archive obsolete items)
+├── configs/
+│   └── port_mapping.yaml         # Machine-readable service-to-port bindings
 ├── docs/
-│   ├── RUNBOOKS/                # Operational playbooks
-│   ├── *.md                     # Engineering policies (code health, metrics, refactors, etc.)
+│   ├── RUNBOOKS/                 # Operational playbooks
+│   ├── *.md                      # Engineering policies (code health, metrics, refactors, etc.)
 │   ├── ARCHITECTURE_GOVERNANCE.md # Agent guide, testing, and port registry rules
-│   ├── PORT_MAPPING.md          # Human-readable registry (keep in sync with configs/port_mapping.yaml)
-│   └── project_summary_template # Rendering templates
+│   └── project_summary_template.md
+├── reports/                      # Stability and analysis outputs
+├── samples/                      # Example data inputs
 ├── scripts/
-│   ├── daily/                   # Daily stability workflows
-│   └── render.py                # Markdown generation entry point
-├── samples/                     # Example data inputs
-├── tests/                       # Pytest suites guarding the renderer
-├── artifacts/                   # Generated outputs (keep tidy; archive obsolete items)
-├── reports/                     # Stability and analysis outputs
-├── CHANGELOG.md                 # Mandatory running history of shipped changes
-├── PLAN.md / PROJECT_SUMMARY.*  # Planning and stakeholder alignment sources
-├── README.md                    # Living overview (update this tree when topology changes)
-└── (planned)
-    └── endpoints/               # Placeholder for future service endpoints (document status here if added)
+│   ├── bootstrap.sh              # One-command local environment setup
+│   ├── ci/                       # Continuous integration orchestration helpers
+│   ├── daily/                    # Daily stability workflows
+│   ├── impact_map.py             # Visualise plan dependencies
+│   ├── maintenance/              # Scheduled refactor helpers
+│   ├── next.py                   # Advance PLAN.md to the next milestone
+│   ├── planlib.py                # Shared planning utilities
+│   ├── refactor_guard.py         # Governance guardrails
+│   └── render.py                 # Markdown generation entry point
+├── tests/                        # Pytest suites guarding the renderer
+├── CHANGELOG.md                  # Mandatory running history of shipped changes
+├── LICENSE                       # Repository license
+├── PLAN.md / PROJECT_SUMMARY.*   # Planning and stakeholder alignment sources
+├── project.yaml(.example)        # Structured data model powering the summary renderer
+└── README.md                     # Living overview (update this tree when topology changes)
 ```
 
 - Never leave orphaned files or directories. Archive anything intentionally dormant under a clearly marked `obsolete` or `archive` path so future contributors understand its status.
