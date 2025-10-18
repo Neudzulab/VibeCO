@@ -29,6 +29,12 @@ The board columns, WIP limits, and card template live in `docs/KANBAN.md`.
 ## Plan progression
 `PLAN.md` lists the steps mapped to each role. Use `python scripts/next.py` to mark the next step as complete or blocked.
 
+## Coordinate multi-agent workspaces
+Follow `docs/MULTI_AGENT_COLLAB_PROTOCOL.md` to implement the request-ledger collaboration
+pattern across every project workspace. It explains how to structure owned folders,
+operate the `AGENTS-REQUESTS.md` hub, and run sync scripts so that agents never overwrite
+each other.
+
 ## Contributing
 - Review `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md` before sending a pull request.
 - For tasks, bugs, and feature ideas, follow the templates under `.github/ISSUE_TEMPLATE`.
