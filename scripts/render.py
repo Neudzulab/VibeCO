@@ -1,4 +1,20 @@
-"""Render PROJECT_SUMMARY.md from project.yaml using a markdown template."""
+"""
+Amaç:
+- `project.yaml` içeriğini `docs/project_summary_template.md` ile birleştirerek
+  `PROJECT_SUMMARY.md` dosyasını üretir ve demo/prod modlarını güvenli biçimde yönetir.
+
+Ana Akış:
+- `build_parser` CLI argümanlarını tanımlar; `main` fonksiyonu modu `resolve_mode`
+  ile belirler.
+- `load_project_data` YAML dosyasını okur, `ensure_mock_usage_allowed` demo dışı
+  çalıştırmalarda örnek verinin sızmasını engeller.
+- `render_template`, Jinja2 şablonunu işleyerek çıktıyı oluşturur ve `main` dosyaya
+  yazar.
+
+İlgili Testler:
+- `tests/test_render.py` dosyası `load_project_data`, `resolve_mode`,
+  `ensure_mock_usage_allowed` ve `render_template` akışlarını kapsar.
+"""
 
 from __future__ import annotations
 

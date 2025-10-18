@@ -14,3 +14,8 @@
 - Never bypass critical/priority services in workflows or scripts; design changes should respect existing stabilisation guards.
 - Treat bug resolution as the highest priority—stabilise failing paths before pursuing net-new features.
 - Uphold clean-code fundamentals: expressive naming, focused functions, comprehensive tests around critical seams, and consistent formatting.
+
+## Code review kontrolleri
+
+- [ ] Değişen dosyanın en üstündeki agent kılavuzu/Amaç-Ana Akış-İlgili Testler bloğu güncel mi?
+- [ ] Yeni dosyalar için `docs/file_agent_template.md` rehberine uygun bir özet eklendi mi?
