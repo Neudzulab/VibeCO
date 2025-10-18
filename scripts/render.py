@@ -1,3 +1,15 @@
+# Agent Guide
+# Purpose: Entry point that renders project summaries from structured YAML data while
+#          enforcing demo-mode guardrails for mock content.
+# Key Flows:
+#   - build_parser(): CLI surface for render options.
+#   - resolve_mode(): Mode resolution with environment fallback.
+#   - ensure_mock_usage_allowed(): Prevents mock data from leaking into production.
+#   - render_template(): Applies the Jinja template and returns markdown output.
+# Relevant Tests:
+#   - tests/test_render.py::test_ensure_mock_usage_blocked_in_production
+#   - tests/test_render.py::test_resolve_mode_prefers_cli
+
 """Render PROJECT_SUMMARY.md from project.yaml using a markdown template."""
 
 from __future__ import annotations

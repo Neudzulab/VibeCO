@@ -1,3 +1,12 @@
+# Agent Guide
+# Purpose: Validates the renderer CLI, template output, and mock data guardrails.
+# Key Flows:
+#   - load_project_data*: Ensures YAML validation paths are guarded.
+#   - render_template(): Confirms markdown export contains dynamic sections.
+#   - resolve_mode(): Exercises CLI vs environment precedence.
+# Relevant Implementation:
+#   - scripts/render.py
+
 from pathlib import Path
 import sys
 
