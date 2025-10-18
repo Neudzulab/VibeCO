@@ -96,6 +96,11 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
 - **Markdown rendering template** (`docs/project_summary_template.md`) that transforms the data into a public-friendly briefing.
 - **Rendering utility** (`scripts/render.py`) with a Makefile target for repeatable builds.
 - **Pytest suite** validating the renderer’s core behaviours, so the workflow stays trustworthy.
+- **Architecture governance playbook** (`docs/ARCHITECTURE_GOVERNANCE.md`) that captures
+  test hygiene, file agent guides, and automation hooks for future services.
+- **Port mapping registry** (`docs/PORT_MAPPING.md`) documenting the canonical network
+  bindings for microservices and the API gateway, backed by
+  [`configs/port_mapping.yaml`](configs/port_mapping.yaml) for automation.
 
 ## Quick start
 
@@ -130,9 +135,12 @@ The top-level structure below captures the current operating architecture. Updat
 VibeCO/
 ├── arylen-agent/                # Local assistant orchestration assets
 ├── configs/                     # Configuration presets consumed by renderers and scripts
+│   └── port_mapping.yaml        # Machine-readable service-to-port bindings
 ├── docs/
 │   ├── RUNBOOKS/                # Operational playbooks
 │   ├── *.md                     # Engineering policies (code health, metrics, refactors, etc.)
+│   ├── ARCHITECTURE_GOVERNANCE.md # Agent guide, testing, and port registry rules
+│   ├── PORT_MAPPING.md          # Human-readable registry (keep in sync with configs/port_mapping.yaml)
 │   └── project_summary_template # Rendering templates
 ├── scripts/
 │   ├── daily/                   # Daily stability workflows
@@ -152,6 +160,8 @@ VibeCO/
 - Note partially implemented or planned work directly in the tree until it is complete.
 - Keep `CHANGELOG.md` current so every change is traceable, and follow the semantic versioning flow described in [`docs/VERSIONING_PLAN.md`](docs/VERSIONING_PLAN.md).
 - When renaming ports, filesystem paths, environment variables, or similar integration touchpoints, search for the previous identifier across the repository and update every reference to prevent partial migrations.
+- Review `docs/PORT_MAPPING.md` before changing any gateway or service binding. Treat
+  mismatches as bugs and update the registry in the same commit.
 
 ## Test organization and guide maintenance
 

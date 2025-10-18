@@ -1,0 +1,45 @@
+# Canonical microservice port bindings.
+# Update this file whenever service listeners change. Keep docs/PORT_MAPPING.md in sync.
+services:
+  api-gateway:
+    description: Edge ingress that authenticates requests and routes to backend services.
+    ports:
+      local: 8080
+      container: 8080
+    protocol: http
+    notes: Publishes OpenAPI docs at /docs.
+  project-service:
+    description: CRUD API for project metadata and timeline entries.
+    ports:
+      local: 8081
+      container: 8081
+    protocol: http
+    notes: Depends on PostgreSQL via internal network.
+  reporting-service:
+    description: Aggregates analytics and exports PDF/markdown summaries.
+    ports:
+      local: 8082
+      container: 8082
+    protocol: http
+    notes: Triggers async jobs through the worker queue.
+  render-worker:
+    description: Background worker responsible for heavy markdown rendering tasks.
+    ports:
+      local: 5672
+      container: 5672
+    protocol: amqp
+    notes: Connects to RabbitMQ; not exposed outside the cluster.
+  identity-service:
+    description: OAuth2 provider for first-party agents.
+    ports:
+      local: 8083
+      container: 8083
+    protocol: http
+    notes: Callback URLs must be registered with the gateway.
+  metrics-collector:
+    description: Prometheus-compatible metrics endpoint.
+    ports:
+      local: 9090
+      container: 9090
+    protocol: http
+    notes: Scraped by the platform observability stack.

@@ -1,20 +1,16 @@
-"""
-Amaç:
-- `project.yaml` içeriğini `docs/project_summary_template.md` ile birleştirerek
-  `PROJECT_SUMMARY.md` dosyasını üretir ve demo/prod modlarını güvenli biçimde yönetir.
+# Agent Guide
+# Purpose: Entry point that renders project summaries from structured YAML data while
+#          enforcing demo-mode guardrails for mock content.
+# Key Flows:
+#   - build_parser(): CLI surface for render options.
+#   - resolve_mode(): Mode resolution with environment fallback.
+#   - ensure_mock_usage_allowed(): Prevents mock data from leaking into production.
+#   - render_template(): Applies the Jinja template and returns markdown output.
+# Relevant Tests:
+#   - tests/test_render.py::test_ensure_mock_usage_blocked_in_production
+#   - tests/test_render.py::test_resolve_mode_prefers_cli
 
-Ana Akış:
-- `build_parser` CLI argümanlarını tanımlar; `main` fonksiyonu modu `resolve_mode`
-  ile belirler.
-- `load_project_data` YAML dosyasını okur, `ensure_mock_usage_allowed` demo dışı
-  çalıştırmalarda örnek verinin sızmasını engeller.
-- `render_template`, Jinja2 şablonunu işleyerek çıktıyı oluşturur ve `main` dosyaya
-  yazar.
-
-İlgili Testler:
-- `tests/test_render.py` dosyası `load_project_data`, `resolve_mode`,
-  `ensure_mock_usage_allowed` ve `render_template` akışlarını kapsar.
-"""
+"""Render PROJECT_SUMMARY.md from project.yaml using a markdown template."""
 
 from __future__ import annotations
 

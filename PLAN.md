@@ -23,6 +23,15 @@
 - [ ] STEP-PH-004: Run a retrospective to confirm agents no longer revisit done tasks
   - owner: @ProjectCoordinator
   - depends_on: STEP-PH-003
+- [ ] STEP-PH-005: Roll out architecture governance playbook and agent guide policy across services
+  - owner: @TechLead
+  - depends_on: STEP-PH-002
+- [ ] STEP-PH-006: Enforce port mapping registry updates (docs + configs/port_mapping.yaml) via PR checklist and review gates
+  - owner: @ReleaseManager
+  - depends_on: STEP-PH-005
+- [ ] STEP-PH-007: Automate detection of demo/test artefacts left in production modules
+  - owner: @DevOpsEngineer
+  - depends_on: STEP-PH-005
 
 ## Revizyon İş Yönetimi
 - [ ] STEP-RY-001: Eski planları gözden geçirerek doğruluğunu teyit et ve revizyon kapsamına al
