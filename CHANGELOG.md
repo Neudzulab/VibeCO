@@ -7,4 +7,5 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 ### Added
 - Documented engineering principles covering orphaned code handling, architecture tree maintenance, change logging, versioning discipline, bug-first prioritisation, and comprehensive identifier updates during port/path/env renames.
+- Renderer guardrails that restrict bundled mock project data to demo mode and new registry documenting all mock/demo resources.
 

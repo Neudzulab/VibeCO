@@ -92,7 +92,7 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
 
 ## What’s included
 
-- **Structured data model (`project.yaml`)** covering objectives, roadmap, experts, quality gates, and progress percentages with fictional sample contributors.
+- **Structured data model (`project.yaml`)** covering objectives, roadmap, experts, quality gates, and progress percentages with fictional sample contributors (see [`docs/mock_data_registry.md`](docs/mock_data_registry.md) for the demo/mock usage policy).
 - **Markdown rendering template** (`docs/project_summary_template.md`) that transforms the data into a public-friendly briefing.
 - **Rendering utility** (`scripts/render.py`) with a Makefile target for repeatable builds.
 - **Pytest suite** validating the renderer’s core behaviours, so the workflow stays trustworthy.

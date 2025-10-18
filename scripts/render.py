@@ -3,11 +3,22 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 from typing import Any
 
 import yaml
 from jinja2 import Environment, FileSystemLoader
+
+DEMO_MODE = "demo"
+PRODUCTION_MODE = "production"
+ALLOWED_MODES = {DEMO_MODE, PRODUCTION_MODE}
+
+MOCK_DATA_MARKERS = {
+    ("name", "Sample Project"),
+    ("slug", "sample-project"),
+    ("tagline", "Write a short, inspiring one-liner."),
+}
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -35,7 +46,42 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         help="Where to write the rendered markdown file.",
     )
+    parser.add_argument(
+        "--mode",
+        choices=sorted(ALLOWED_MODES),
+        default=None,
+        help=(
+            "Execution mode. Use 'demo' when relying on bundled mock data; "
+            "defaults to the VIBECO_MODE environment variable or 'production'."
+        ),
+    )
     return parser
+
+
+def resolve_mode(cli_mode: str | None) -> str:
+    """Return the execution mode from CLI or environment input."""
+
+    mode = cli_mode or os.getenv("VIBECO_MODE") or PRODUCTION_MODE
+    if mode not in ALLOWED_MODES:
+        raise SystemExit(
+            f"Unsupported mode '{mode}'. Allowed values: {', '.join(sorted(ALLOWED_MODES))}."
+        )
+    return mode
+
+
+def ensure_mock_usage_allowed(
+    data: dict[str, Any], *, mode: str, data_path: Path | None = None
+) -> None:
+    """Prevent mock project data from leaking into production workflows."""
+
+    uses_mock_data = any(data.get(key) == value for key, value in MOCK_DATA_MARKERS)
+    if uses_mock_data and mode != DEMO_MODE:
+        source = f" ({data_path})" if data_path else ""
+        raise SystemExit(
+            "Mock project data detected. Run the renderer in demo mode"
+            " (--mode demo or VIBECO_MODE=demo) or replace mock values before"
+            f" proceeding{source}."
+        )
 
 
 def load_project_data(path: Path) -> dict[str, Any]:
@@ -77,12 +123,17 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
 
+    mode = resolve_mode(args.mode)
     project_data = load_project_data(args.data)
+    ensure_mock_usage_allowed(project_data, mode=mode, data_path=args.data)
     output = render_template(args.template, project_data)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(output, encoding="utf-8")
-    print(f"Rendered {args.output} from {args.data} using {args.template}")
+    print(
+        f"Rendered {args.output} from {args.data} using {args.template}"
+        f" (mode={mode})"
+    )
 
 
 if __name__ == "__main__":
