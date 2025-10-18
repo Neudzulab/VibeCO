@@ -1,5 +1,22 @@
 #!/usr/bin/env python
-"""Generate roster recommendations from project specifications."""
+"""
+Amaç:
+- `project/spec.yaml` içindeki kuralları okuyarak `agents/roster.yaml` için önerilen ekip
+  kadrosunu üretir ve isteğe bağlı olarak CODEOWNERS listesini günceller.
+
+Ana Akış:
+- `main` CLI bağımsız değişkenlerini ayrıştırır ve yapılandırmayı `load_spec` ile okur.
+- `compute_team_counts`, ölçekleme ve kısıt parametrelerini kullanarak rol başına kişi
+  sayısını hesaplar; üst limit aşıldığında `balance_team` ile öncelik sırasına göre
+  azaltım yapar.
+- `build_roster`, rol adlarını ve beceri eşlemlerini kullanarak YAML çıktısını
+  yapılandırır, `write_roster` dosyaya yazar ve `--codeowners` seçildiğinde
+  `scripts/gen_codeowners.py` ile CODEOWNERS dosyasını yeniler.
+
+İlgili Testler:
+- Otomatik test bulunmuyor; çıktıyı doğrulamak için render edilen `agents/roster.yaml`
+  ve CODEOWNERS dosyalarının gözlemi gerekir.
+"""
 from __future__ import annotations
 
 import argparse

@@ -163,6 +163,33 @@ VibeCO/
 - Review `docs/PORT_MAPPING.md` before changing any gateway or service binding. Treat
   mismatches as bugs and update the registry in the same commit.
 
+## Test organization and guide maintenance
+
+Keeping tests in the dedicated `tests/` package and updating agent guidance files ensures the repository stays predictable for both humans and automations.
+
+### Moving stray tests into `tests/`
+
+1. Mirror the package structure of the code under test inside `tests/` (for example, `src/foo/bar.py` maps to `tests/foo/test_bar.py`).
+2. Relocate the test module and adjust import paths to use relative package imports from `tests/`.
+3. Update any fixtures or shared utilities to follow the new structure.
+4. Run `pytest` and commit the move only after confirming the suite still passes.
+
+### Updating file agent guides
+
+- Whenever you introduce new directories or large files (>512 KiB), add or refresh an `AGENTS.md` guide in that directory so future contributors understand the local conventions.
+- Review existing `AGENTS.md` files during refactors and document any new expectations introduced by the change.
+- Reference these guides directly in pull requests via the template checklist additions so reviewers can verify they remain accurate.
+
+### Monthly hygiene check
+
+Run the maintenance helper to catch outstanding tasks before they accumulate:
+
+```bash
+python scripts/maintenance/report_repo_health.py
+```
+
+The script reports large files missing `AGENTS.md` coverage and test-like modules outside the `tests/` tree so the team can tidy them up during the regular maintenance window.
+
 
 ## Versioning policy
 
