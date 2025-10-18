@@ -122,6 +122,38 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
    ```
 8. Publish your repository or share the rendered brief with your collaborators. Each time you receive a new command or the `Next` keyword, update the YAML and re-render.
 
+## Architecture tree and update discipline
+
+The top-level structure below captures the current operating architecture. Update this tree whenever you introduce new endpoints, components, or leave planned/partially completed work in the codebase so the status stays transparent.
+
+```
+VibeCO/
+├── arylen-agent/                # Local assistant orchestration assets
+├── configs/                     # Configuration presets consumed by renderers and scripts
+├── docs/
+│   ├── RUNBOOKS/                # Operational playbooks
+│   ├── *.md                     # Engineering policies (code health, metrics, refactors, etc.)
+│   └── project_summary_template # Rendering templates
+├── scripts/
+│   ├── daily/                   # Daily stability workflows
+│   └── render.py                # Markdown generation entry point
+├── samples/                     # Example data inputs
+├── tests/                       # Pytest suites guarding the renderer
+├── artifacts/                   # Generated outputs (keep tidy; archive obsolete items)
+├── reports/                     # Stability and analysis outputs
+├── CHANGELOG.md                 # Mandatory running history of shipped changes
+├── PLAN.md / PROJECT_SUMMARY.*  # Planning and stakeholder alignment sources
+├── README.md                    # Living overview (update this tree when topology changes)
+└── (planned)
+    └── endpoints/               # Placeholder for future service endpoints (document status here if added)
+```
+
+- Never leave orphaned files or directories. Archive anything intentionally dormant under a clearly marked `obsolete` or `archive` path so future contributors understand its status.
+- Note partially implemented or planned work directly in the tree until it is complete.
+- Keep `CHANGELOG.md` current so every change is traceable, and follow the semantic versioning flow described in [`docs/VERSIONING_PLAN.md`](docs/VERSIONING_PLAN.md).
+- When renaming ports, filesystem paths, environment variables, or similar integration touchpoints, search for the previous identifier across the repository and update every reference to prevent partial migrations.
+
+
 ## Versioning policy
 
 Every merged pull request must produce a new semantic version tag starting from **`v0.1.0`**. Use the [versioning strategy](docs/VERSIONING_PLAN.md) to decide whether the change triggers a major, minor, or patch increment and include the planned version in the PR description before merging.
