@@ -1,10 +1,19 @@
+<!--
+  Scope: Repository-wide change history for VibeCO.
+  Last updated: Added policy entry documenting stricter agent checklist requirements.
+-->
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) convention and adheres to Semantic Versioning as described in [docs/VERSIONING_PLAN.md](docs/VERSIONING_PLAN.md).
 
+<!-- Maintainer note: Unreleased section documents checklist/policy updates pending next tagged release. -->
+
 ## [Unreleased]
+### Added
+- Repository-wide contribution checklist in `AGENTS.md` enforcing file headers, architecture tree maintenance, roadmap alignment, and changelog hygiene.
 
 ## [v0.6.5] - 2025-10-19
 ### Added
