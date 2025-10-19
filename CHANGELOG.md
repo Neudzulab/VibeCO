@@ -6,6 +6,13 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
+## [v0.6.5] - 2025-10-19
+### Added
+- Continuation workflow guidance for extending `AGENTS.md`, including orphan detection, inconsistency tracking, and `netlestirme.yaml` coordination steps.
+
+### Changed
+- Updated documentation references to advertise the v0.6.5 milestone badge.
+
 ## [v0.6.0] - 2025-10-18
 ### Added
 - Documented engineering principles covering orphaned code handling, architecture tree maintenance, change logging, versioning discipline, bug-first prioritisation, and comprehensive identifier updates during port/path/env renames.

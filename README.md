@@ -1,6 +1,6 @@
 # VibeCO
 
-![Version v0.6.0 badge](https://img.shields.io/badge/version-v0.6.0-7c3aed?style=for-the-badge)
+![Version v0.6.5 badge](https://img.shields.io/badge/version-v0.6.5-7c3aed?style=for-the-badge)
 [![refactor-guard](https://github.com/Neudzulab/VibeCO/actions/workflows/refactor.yml/badge.svg)](./.github/workflows/refactor.yml)
 [![daily-stability](https://github.com/Neudzulab/VibeCO/actions/workflows/daily_stability.yml/badge.svg)](./.github/workflows/daily_stability.yml)
 
