@@ -1,12 +1,12 @@
 <!--
   File: README.md
   Purpose: Primary onboarding and operational guide for VibeCO, including quick start flows, prompts, and architecture overview.
-  Last updated: Promote v0.7.0 release and add quick update prompt to backfill checklist requirements on existing clones.
+  Last updated: Promote v0.7.1 release and keep quick update prompt to backfill checklist requirements on existing clones.
 -->
 
 # VibeCO
 
-![Version v0.7.0 badge](https://img.shields.io/badge/version-v0.7.0-7c3aed?style=for-the-badge)
+![Version v0.7.1 badge](https://img.shields.io/badge/version-v0.7.1-7c3aed?style=for-the-badge)
 [![refactor-guard](https://github.com/Neudzulab/VibeCO/actions/workflows/refactor.yml/badge.svg)](./.github/workflows/refactor.yml)
 [![daily-stability](https://github.com/Neudzulab/VibeCO/actions/workflows/daily_stability.yml/badge.svg)](./.github/workflows/daily_stability.yml)
 
