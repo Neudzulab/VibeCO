@@ -1,6 +1,12 @@
+<!--
+  File: README.md
+  Purpose: Primary onboarding and operational guide for VibeCO, including quick start flows, prompts, and architecture overview.
+  Last updated: Promote v0.7.0 release and add quick update prompt to backfill checklist requirements on existing clones.
+-->
+
 # VibeCO
 
-![Version v0.6.5 badge](https://img.shields.io/badge/version-v0.6.5-7c3aed?style=for-the-badge)
+![Version v0.7.0 badge](https://img.shields.io/badge/version-v0.7.0-7c3aed?style=for-the-badge)
 [![refactor-guard](https://github.com/Neudzulab/VibeCO/actions/workflows/refactor.yml/badge.svg)](./.github/workflows/refactor.yml)
 [![daily-stability](https://github.com/Neudzulab/VibeCO/actions/workflows/daily_stability.yml/badge.svg)](./.github/workflows/daily_stability.yml)
 
@@ -88,6 +94,20 @@
 >   >> Type Next to continue, or STOP to pause.
 >
 > ```
+
+> [!TIP]
+> ### 🔄 Quick VibeCO Update Prompt
+> Working from an older clone and need the latest checklist artifacts? Feed your assistant this prompt so it backfills missing headers, changelog entries, and roadmap notes automatically:
+>
+> ```
+> You are working inside an existing VibeCO clone. Bring the repository up to the v0.7.0 checklist standard by:
+> 1. Scanning for files lacking the required header comments and adding concise purpose notes using native comment syntax.
+> 2. Validating the README architecture tree against the current filesystem, patching any missing endpoints, services, or status annotations.
+> 3. Reviewing CHANGELOG.md, PLAN.md, and PROJECT_SUMMARY.md to align roadmap and history entries with recent work.
+> 4. Committing the fixes with the message "chore: quick vibeco update" without creating a release tag.
+> ```
+>
+> Re-run after major policy updates to keep legacy workspaces compliant.
 
 Welcome to the 2025 edition of **VibeCO (Vibe Coding Orchestrator)**—a reusable project brief template designed so that every stakeholder immediately understands what you are building, why it matters, and how to unlock the next phase of work. Clone this repository, inject your own context, and publish a polished brief that keeps your team aligned from day zero.
 
