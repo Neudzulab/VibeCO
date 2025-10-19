@@ -100,11 +100,47 @@
 > Working from an older clone and need the latest checklist artifacts? Feed your assistant this prompt so it backfills missing headers, changelog entries, and roadmap notes automatically:
 >
 > ```
-> You are working inside an existing VibeCO clone. Bring the repository up to the v0.7.0 checklist standard by:
-> 1. Scanning for files lacking the required header comments and adding concise purpose notes using native comment syntax.
-> 2. Validating the README architecture tree against the current filesystem, patching any missing endpoints, services, or status annotations.
-> 3. Reviewing CHANGELOG.md, PLAN.md, and PROJECT_SUMMARY.md to align roadmap and history entries with recent work.
-> 4. Committing the fixes with the message "chore: quick vibeco update" without creating a release tag.
+>You are updating a local project to conform to the canonical VibeCO structure and checklists.
+>
+>Canonical repository: https://github.com/Neudzulab/VibeCO
+>Canonical ref (auto-resolve in this priority):
+>  1) Latest GitHub release tag (e.g., via "releases/latest")
+>  2) Highest semver tag in refs/tags
+>  3) Default branch (main)
+>
+>Hard rule: Treat the canonical repository (resolved ref) as the single source of truth for architecture, headers, and docs. Do NOT derive conventions from the local project’s past state.
+>
+>Your tasks:
+>
+>1) Canonical Sync
+>   - Resolve the canonical ref as described above and read the VibeCO structure, required header comment formats, and documentation patterns from that ref.
+>   - Cache what you resolve (e.g., tag_name) and use it consistently during this run.
+>
+>2) Header Validation
+>   - Scan local files for missing/outdated header comments.
+>   - Insert concise “purpose” notes using each file’s native comment syntax.
+>   - Match the format demonstrated in VibeCO at the resolved ref.
+>
+>3) README Tree Alignment
+>   - Compare the local README architecture tree against the canonical one.
+>   - Patch missing endpoints, services, and status annotations for parity with VibeCO.
+>
+>4) Docs Review
+>   - Review and align CHANGELOG.md, PLAN.md, and PROJECT_SUMMARY.md with the canonical roadmap and history.
+>   - Add missing entries that reflect recent work so the local repo matches the canonical expectations.
+>
+>5) Commit
+>   - Commit all fixes with the exact message:
+>     chore: quick vibeco update
+>   - Do NOT create or push a release tag.
+>
+>Guardrails:
+>- Always prefer canonical decisions over local conventions when they conflict.
+>- Don’t modify files outside the project scope (e.g., editor settings, user secrets).
+>- If “latest” cannot be resolved, fall back to main. Continue deterministically; do not ask for confirmation.
+>- Record the resolved ref at the end of the commit message as a footer line:
+>  Resolved-Canonical: <tag-or-branch>
+>
 > ```
 >
 > Re-run after major policy updates to keep legacy workspaces compliant.
