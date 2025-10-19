@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Recorded the v0.7.0 release with checklist enforcement guidance and the quick update assistant prompt.
+  Last updated: Documented clarification.yaml guardrails and logged supporting example template.
 -->
 
 # Changelog
@@ -13,7 +13,10 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 ### Added
-- Nothing yet.
+- `clarification.yaml.example` illustrating how to request and return focused decision checkpoints without stalling other workstreams.
+
+### Changed
+- Refined the repository-wide `AGENTS.md` to limit clarification requests to concrete option selections and renamed the workflow to `clarification.yaml`.
 
 ## [v0.7.0] - 2025-10-20
 ### Added

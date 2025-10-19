@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide agent operating rules for VibeCO.
-  Last updated: Aligns all contributors on mandatory documentation, changelog, and roadmap hygiene after gaps were observed.
+  Last updated: Clarifies the clarification.yaml workflow and prevents unnecessary blocking requests.
 -->
 
 # VibeCO Agent Guidelines
@@ -51,28 +51,32 @@ When someone asks for "AGENTS.md devam" (to continue agent instructions), follow
 2. **Prioritize top-level gaps.** Resolve repository-wide issues first (naming conventions, versioning, shared tooling). Only after those are addressed should you refine nested instructions.
 3. **Map orphan structures.** List directories, modules, or workflows that lack coverage from any existing `AGENTS.md`. Note whether they need fresh guidance or if they can inherit from parents.
 4. **Detect inconsistencies.** Flag mismatched terminology, divergent naming conventions, or contradictory process steps. Capture each discrepancy with a proposed resolution.
-5. **Confirm with the requester.** Share your findings (orphan list, conflict matrix, proposed fixes) and request a `netlestirme.yaml` file from the user when decisions must be locked in.
+5. **Confirm with the requester.** Share your findings (orphan list, conflict matrix, proposed fixes) and request a `clarification.yaml` file from the user only when a concrete decision between clearly identified options must be locked in. Do not pause other actionable work while waiting—collect the clarification in parallel with ongoing tasks.
 
-### Requesting `netlestirme.yaml`
-Ask the requester to fill in a clarification YAML with the following structure whenever choices are ambiguous:
+### Requesting `clarification.yaml`
+Ask the requester to fill in a clarification YAML with the following structure whenever the team is genuinely split between well-defined alternatives:
 ```yaml
-orphan_paths:
-  - path: docs/new-feature
-    action: write-new
-    owner: platform-team
-naming_conflicts:
-  - item: data pipelines vs. datapipes
-    preferred_term: datapipes
-process_decisions:
-  - scenario: linting vs. formatting order
-    canonical_sequence: [lint, format]
+decision_context: "Gateway service port selection"
+options:
+  - value: 5005
+    rationale: "Matches existing staging traffic configuration"
+  - value: 5020
+    rationale: "Aligns with production firewall rules"
+selected_option: 5005
+follow_up_tasks:
+  - "Update gateway deployment manifests"
 additional_notes: |
-  Add any contextual details that affect how the instructions should be finalized.
+  Add any contextual details that affect how the instructions should be finalized. Limit requests to the specific fork-in-the-road you are addressing right now.
 ```
-Wait for a complete response before finalizing the instructions so the project can be "rescued" with minimal back-and-forth.
+Wait for a complete response before finalizing the instructions relevant to that choice, but continue progressing on other independent workstreams.
+
+> **Usage guardrails:**
+> - Keep requests situational—each `clarification.yaml` should map to a single decision point rather than a general status update.
+> - If the requester provides both options (e.g., `5005` and `5020`), pick the option they highlighted as the final decision and document it before moving forward.
+> - Avoid serial requests that block the project; only ask for the file when you can list the competing options and the downstream change that depends on the answer.
 
 ## Documenting resolutions
-- Summarize accepted solutions directly in the relevant `AGENTS.md` scopes and link to the authoritative `netlestirme.yaml` when possible.
+- Summarize accepted solutions directly in the relevant `AGENTS.md` scopes and link to the authoritative `clarification.yaml` when possible.
 - Keep a running changelog inside the file (or the project CHANGELOG) describing how orphaned areas were addressed, which conventions won, and any open follow-ups.
 - Whenever you introduce clarifications, annotate why VibeCO precedence applies so future maintainers know which directives cannot be overridden.
 

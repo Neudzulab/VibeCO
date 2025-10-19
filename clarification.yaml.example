@@ -1,0 +1,14 @@
+# clarification.yaml example for VibeCO decision checkpoints.
+# Updated 2025-10-19 to demonstrate targeted, non-blocking clarification requests.
+decision_context: "Gateway service port selection"
+options:
+  - value: 5005
+    rationale: "Matches existing staging traffic configuration"
+  - value: 5020
+    rationale: "Aligns with production firewall rules"
+selected_option: 5005
+follow_up_tasks:
+  - "Update gateway deployment manifests"
+additional_notes: |
+  Limit each clarification request to the specific decision you are resolving.
+  Continue progressing on unrelated work while the requester confirms the choice.
