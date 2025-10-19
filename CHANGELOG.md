@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Added policy entry documenting stricter agent checklist requirements.
+  Last updated: Recorded the v0.7.0 release with checklist enforcement guidance and the quick update assistant prompt.
 -->
 
 # Changelog
@@ -13,7 +13,15 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 ### Added
+- Nothing yet.
+
+## [v0.7.0] - 2025-10-20
+### Added
 - Repository-wide contribution checklist in `AGENTS.md` enforcing file headers, architecture tree maintenance, roadmap alignment, and changelog hygiene.
+- Quick VibeCO update assistant prompt in `README.md` so legacy clones can automatically adopt checklist requirements.
+
+### Changed
+- Bumped the README version badge to `v0.7.0` and annotated the file header to reflect the new documentation release.
 
 ## [v0.6.5] - 2025-10-19
 ### Added
