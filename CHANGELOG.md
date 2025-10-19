@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Documented clarification.yaml guardrails and logged supporting example template.
+  Last updated: Tagged the v0.7.1 release and archived clarification workflow updates from Unreleased.
 -->
 
 # Changelog
@@ -12,6 +12,13 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 <!-- Maintainer note: Unreleased section documents checklist/policy updates pending next tagged release. -->
 
 ## [Unreleased]
+### Added
+- _No entries yet._
+
+### Changed
+- _No entries yet._
+
+## [v0.7.1] - 2025-10-21
 ### Added
 - `clarification.yaml.example` illustrating how to request and return focused decision checkpoints without stalling other workstreams.
 
