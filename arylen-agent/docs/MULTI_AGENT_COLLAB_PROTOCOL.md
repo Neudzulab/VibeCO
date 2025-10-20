@@ -20,8 +20,10 @@ stepping on each other while keeping humans in control of synchronization.
 1. **Workspaces.** Each agent owns a dedicated top-level folder or git worktree. Ownership
    determines where the agent can commit code.  Cross-workspace edits require an approved
    request.
-2. **Ledger hub.** A single `AGENTS-REQUESTS.md` lives in the orchestrator root. It is the
-   source of truth for new requests, status transitions, and implementation summaries.
+2. **Ledger hub.** A single `AGENTS-REQUESTS.md` lives in the orchestrator root
+   (`arylen-agent/AGENTS-REQUESTS.md` in this reference workspace). It is the source of
+   truth for new requests, status transitions, and implementation summaries, and the
+   requesting agent is responsible for writing the entry.
 3. **Read-only visibility.** Agents may read other workspaces to understand the system, but
    write access is confined to their own workspace.  This prevents surprise overwrites and
    clarifies responsibility.
@@ -43,7 +45,7 @@ repo/
 
 | Stage        | Description | Required action |
 |--------------|-------------|-----------------|
-| `📋 Pending` | New request logged with context, expected outputs, and dependencies. | Requesting agent updates ledger. |
+| `📋 Pending` | New request logged with context, expected outputs, and dependencies. | Requesting agent creates or updates the ledger entry. |
 | `🔄 In Progress` | Assigned agent has started work and notes the start timestamp. | Implementing agent updates status. |
 | `✅ Done`    | Implementation complete. Include commit hash, affected files, breaking change callouts, and migration notes. | Implementing agent finalizes entry. |
 | `❌ Rejected`| Request declined. Add rationale and alternative ideas. | Implementing agent or maintainer updates status. |
@@ -81,7 +83,9 @@ maintain traceability.
    orchestrator directory.
 2. **Publish CODEOWNERS.** Map each workspace path to the owning agent role.
 3. **Add the ledger.** Copy `AGENTS-REQUESTS.md` template into the orchestrator root with
-   starter sections for pending, in progress, done, and rejected items.
+   starter sections for pending, in progress, done, and rejected items. The VibeCO
+   reference workspace already includes `arylen-agent/AGENTS-REQUESTS.md` so agents can
+   log synchronization-bound requests immediately.
 4. **Configure sync automation.** Customize `scripts/sync-agent-requests` with project
    paths and notification hooks.
 5. **Train agents.** Share this protocol during onboarding and reinforce "requests only"
