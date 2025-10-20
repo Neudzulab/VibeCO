@@ -1,7 +1,7 @@
 <!--
   File: README.md
   Purpose: Primary onboarding and operational guide for VibeCO, including quick start flows, prompts, and architecture overview.
-  Last updated: Promote v0.7.2 release, reaffirm quick update automation, and align agent onboarding guidance.
+  Last updated: Synced with canonical v0.7.2, condensed the quick update guidance, and highlighted the new pytest summary output.
 -->
 
 # VibeCO
@@ -97,51 +97,25 @@
 
 > [!TIP]
 > ### 🔄 Quick VibeCO Update Prompt
-> Working from an older clone and need the latest checklist artifacts? Feed your assistant this prompt so it backfills missing headers, changelog entries, and roadmap notes automatically:
+> Need to refresh an older clone? Drop this compact brief to mirror the canonical checklist from release `v0.7.2` without the extra narration:
 >
-> ```
+> ```text
 >You are updating a local project to conform to the canonical VibeCO structure and checklists.
 >
 >Canonical repository: https://github.com/Neudzulab/VibeCO
->Canonical ref (auto-resolve in this priority):
->  1) Latest GitHub release tag (e.g., via "releases/latest")
->  2) Highest semver tag in refs/tags
->  3) Default branch (main)
+>Resolve the working ref in this priority and reuse it everywhere: latest release tag → highest semver tag → main.
 >
->Hard rule: Treat the canonical repository (resolved ref) as the single source of truth for architecture, headers, and docs. Do NOT derive conventions from the local project’s past state.
+>Hard rule: the resolved canonical repo is the single source of truth—do not rely on your local history.
 >
->Your tasks:
+>Tasks
+>1. Canonical sync — read the structure, headers, and doc patterns at the resolved ref.
+>2. Headers — add/update native purpose comments for every touched file.
+>3. README — mirror the architecture tree from the canonical ref.
+>4. Docs — align CHANGELOG.md, PLAN.md, and PROJECT_SUMMARY.md with the canonical roadmap/history.
+>5. Commit — use `chore: quick vibeco update` and append `Resolved-Canonical: <tag-or-branch>`; never create a tag.
 >
->1) Canonical Sync
->   - Resolve the canonical ref as described above and read the VibeCO structure, required header comment formats, and documentation patterns from that ref.
->   - Cache what you resolve (e.g., tag_name) and use it consistently during this run.
->
->2) Header Validation
->   - Scan local files for missing/outdated header comments.
->   - Insert concise “purpose” notes using each file’s native comment syntax.
->   - Match the format demonstrated in VibeCO at the resolved ref.
->
->3) README Tree Alignment
->   - Compare the local README architecture tree against the canonical one.
->   - Patch missing endpoints, services, and status annotations for parity with VibeCO.
->
->4) Docs Review
->   - Review and align CHANGELOG.md, PLAN.md, and PROJECT_SUMMARY.md with the canonical roadmap and history.
->   - Add missing entries that reflect recent work so the local repo matches the canonical expectations.
->
->5) Commit
->   - Commit all fixes with the exact message:
->     chore: quick vibeco update
->   - Do NOT create or push a release tag.
->
->Guardrails:
->- Always prefer canonical decisions over local conventions when they conflict.
->- Don’t modify files outside the project scope (e.g., editor settings, user secrets).
->- If “latest” cannot be resolved, fall back to main. Continue deterministically; do not ask for confirmation.
->- Record the resolved ref at the end of the commit message as a footer line:
->  Resolved-Canonical: <tag-or-branch>
->
-> ```
+>Guardrails: Prefer canonical decisions, skip non-project files, and fall back to `main` only when no release/tag resolves.
+>```
 >
 > Re-run after major policy updates to keep legacy workspaces compliant.
 
@@ -170,28 +144,27 @@ Modern software projects evolve quickly. VibeCO keeps your source-of-truth light
 
 ## Quick start
 
-1. Fork or clone this repository.
-2. Create a virtual environment and install dependencies:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
-   ```
-3. Copy and personalize the project data (a starter `project.yaml` is already included so you can skip this step unless you want a clean slate):
-   ```bash
-   cp project.yaml.example project.yaml
-   ```
-4. Replace the placeholder content in `project.yaml` with your project’s realities. Update progress percentages, document the experts you consult, and note who can speak the `Next` keyword for each stage.
-5. Generate the shareable summary:
-   ```bash
-   make render
-   ```
-6. Review the generated `PROJECT_SUMMARY.md`. When it looks right, commit both `project.yaml` and the rendered summary.
-7. Run the automated checks:
-   ```bash
-   pytest
-   ```
-8. Publish your repository or share the rendered brief with your collaborators. Each time you receive a new command or the `Next` keyword, update the YAML and re-render.
+Start with the one-command bootstrap—everything else is already scripted:
+
+```bash
+./scripts/bootstrap.sh
+```
+
+Need to step through the workflow manually? Follow the annotated checklist in [`scripts/bootstrap.sh`](scripts/bootstrap.sh) or mirror the canonical walkthrough in [VibeCO v0.7.2](https://github.com/Neudzulab/VibeCO/blob/v0.7.2/README.md#quick-start).
+
+## Windows PowerShell helpers
+
+Use the PowerShell scripts under `scripts/` when working on Windows to keep the local workflow aligned with VibeCO’s automation principles:
+
+- `scripts/test-all.ps1` runs the full pytest suite, elevates every warning (including deprecations) to an error, and prints a success/failure summary with counts for quick audits.
+- `scripts/test-unit.ps1` focuses on `tests/unit`, mirrors the strict warning policy, and prints the same end-of-run summary.
+- `scripts/test-integration.ps1` targets `tests/integration`, keeps warnings fatal, and emits the shared summary report.
+- Whenever you add, rename, or retire a test package, update these scripts (and introduce a new module-specific runner if needed) so Windows contributors never lose parity with the canonical test plan.
+- `scripts/install-local.ps1` prepares the Docker Compose environment (`docker compose pull`, `build`, and `up --no-start`) after confirming that Docker is installed and reachable.
+- `scripts/start-local.ps1` starts the Compose stack and exits with a clear message if Docker Desktop or the daemon is unavailable.
+
+> [!IMPORTANT]
+> Keep these scripts updated whenever you add new automated tests, services, or supporting infrastructure so they remain a true one-command entry point for the local workflow.
 
 ## Architecture tree and update discipline
 
@@ -227,6 +200,7 @@ VibeCO/
 ├── project.yaml(.example)        # Structured data model powering the summary renderer
 └── README.md                     # Living overview (update this tree when topology changes)
 ```
+
 
 - Never leave orphaned files or directories. Archive anything intentionally dormant under a clearly marked `obsolete` or `archive` path so future contributors understand its status.
 - Note partially implemented or planned work directly in the tree until it is complete.

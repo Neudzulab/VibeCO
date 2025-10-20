@@ -1,11 +1,15 @@
 <!--
   Scope: Repository-wide agent operating rules for VibeCO.
-  Last updated: Re-centered the handbook on guiding agents who clone VibeCO, added AGENTS_SAMPLE.md reference, and reinforced the quick update workflow.
+  Last updated: Highlighted the pytest summary expectation and aligned references with the canonical v0.7.2 checklist.
 -->
 
 # VibeCO Agent Handbook
 
 Welcome! This document is the canonical set of instructions for any agent downloading VibeCO to learn how the brief works, how to keep documentation compliant, and how to extend the guidance for downstream projects.
+
+> [!CAUTION]
+> **Do not copy this handbook wholesale into other repositories.**
+> VibeCO is the source of truth; downstream projects must adapt the rules using [`AGENTS_SAMPLE.md`](./AGENTS_SAMPLE.md) so their local conventions stay explicit without importing unrelated constraints.
 
 ## 1. Understand the repository
 - **Start at `README.md`.** It contains the version badge, the one-command bootstrap (`./scripts/bootstrap.sh`), and the quick update prompt for legacy clones.
@@ -21,6 +25,7 @@ Welcome! This document is the canonical set of instructions for any agent downlo
 - **Quick update prompt:** The canonical prompt lives in the README under “Working from an older clone…”. Verify that the repository URL and semver guidance match the latest release when you cut a new version. Any downstream project should reference this prompt verbatim unless it documents specific overrides.
 - **Version badge:** Update the badge in `README.md` and the header comment whenever you advance the version (current release: `v0.7.2`).
 - **Release metadata:** Reflect new releases in `CHANGELOG.md` following the Keep a Changelog format and semantic versioning described in `docs/VERSIONING_PLAN.md`.
+- **PowerShell test harness:** Mirror changes in the pytest package layout by updating `scripts/test-*.ps1` and `scripts/lib/TestHarness.ps1`, keep the junitxml summary output intact, and add new module-specific runners whenever suites are introduced or retired.
 
 ## 4. Contribution hygiene (applies to every change)
 1. **File headers**
@@ -44,6 +49,7 @@ Welcome! This document is the canonical set of instructions for any agent downlo
 - Use `AGENTS_SAMPLE.md` (included in the repository root) as the starter template when you need to craft instructions for a derivative project.
 - Rename the file to suit the host project, but keep sections covering onboarding, tooling, documentation hygiene, release cadence, and the quick update prompt.
 - When an existing project already has agent instructions, merge in the VibeCO expectations and clearly state which rules take precedence if conflicts arise.
+- Replace or tailor examples so that contributors understand the downstream project context—never leave the VibeCO-specific narrative in place.
 
 ## 6. Continuing an `AGENTS.md` update
 When asked for “AGENTS.md devam”, proceed in this order:
