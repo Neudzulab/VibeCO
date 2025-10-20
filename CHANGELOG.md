@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Recorded the v0.7.2 release with refreshed agent guidance and sample template rename.
+  Last updated: Documented pytest summary reporting and doc alignment while syncing with canonical v0.7.2.
 -->
 
 # Changelog
@@ -13,10 +13,11 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 ### Added
-- _None_
+- Structured pytest summary reporting in the shared Windows harness so every runner prints success, failure, error, warning, and ignored counts.
 
 ### Changed
-- _None_
+- Synced README quick start and architecture tree with the canonical v0.7.2 guidance while shortening the quick update prompt.
+- Highlighted the junitxml summary requirement in `AGENTS.md` and refreshed the PowerShell helper documentation.
 
 ### Removed
 - _None_
