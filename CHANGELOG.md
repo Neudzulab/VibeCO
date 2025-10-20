@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Documented pytest summary reporting and doc alignment while syncing with canonical v0.7.2.
+  Last updated: Recorded the v0.7.3 release with the bundled request ledger and sync documentation refresh.
 -->
 
 # Changelog
@@ -13,11 +13,22 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 ### Added
+- _None_
+
+### Changed
+- _None_
+
+### Removed
+- _None_
+
+## [v0.7.3] - 2025-10-23
+### Added
+- `arylen-agent/AGENTS-REQUESTS.md` as the ready-to-use ledger so requesting agents can log synchronization-bound work items without maintainer intervention.
 - Structured pytest summary reporting in the shared Windows harness so every runner prints success, failure, error, warning, and ignored counts.
 
 ### Changed
-- Synced README quick start and architecture tree with the canonical v0.7.2 guidance while shortening the quick update prompt.
-- Highlighted the junitxml summary requirement in `AGENTS.md` and refreshed the PowerShell helper documentation.
+- Synced README quick start and architecture tree with the canonical v0.7.3 guidance while shortening the quick update prompt.
+- Highlighted the junitxml summary requirement in `AGENTS.md`, refreshed the PowerShell helper documentation, and linked the ledger workflow updates across the docs.
 
 ### Removed
 - _None_

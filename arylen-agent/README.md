@@ -1,3 +1,7 @@
+<!--
+  Last updated: Linked to the bundled AGENTS-REQUESTS ledger so agents can log cross-workspace requests immediately.
+-->
+
 # Arylen Agent
 
 [![CI](https://github.com/VibeCO/arylen-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/VibeCO/arylen-agent/actions/workflows/ci.yml)
@@ -33,7 +37,8 @@ The board columns, WIP limits, and card template live in `docs/KANBAN.md`.
 Follow `docs/MULTI_AGENT_COLLAB_PROTOCOL.md` to implement the request-ledger collaboration
 pattern across every project workspace. It explains how to structure owned folders,
 operate the `AGENTS-REQUESTS.md` hub, and run sync scripts so that agents never overwrite
-each other.
+each other. The `arylen-agent/AGENTS-REQUESTS.md` template in this repository is ready for
+agents to log synchronization-dependent requests as soon as they onboard.
 
 ## Contributing
 - Review `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md` before sending a pull request.
