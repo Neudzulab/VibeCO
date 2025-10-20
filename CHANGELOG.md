@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Tagged the v0.7.1 release and archived clarification workflow updates from Unreleased.
+  Last updated: Recorded the v0.7.2 release with refreshed agent guidance and sample template rename.
 -->
 
 # Changelog
@@ -13,10 +13,21 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 ### Added
-- _No entries yet._
+- _None_
 
 ### Changed
-- _No entries yet._
+- _None_
+
+### Removed
+- _None_
+
+## [v0.7.2] - 2025-10-22
+### Added
+- `AGENTS_SAMPLE.md` as the official, ready-to-adapt template for downstream teams to craft their own agent guides while mirroring VibeCO expectations.
+
+### Changed
+- Re-centered the root `AGENTS.md` on onboarding agents who clone VibeCO, refreshed automation guidance, and pointed readers at the renamed sample file.
+- Bumped the README header note and version badge to advertise the v0.7.2 release and highlight the quick update workflow alignment.
 
 ## [v0.7.1] - 2025-10-21
 ### Added
