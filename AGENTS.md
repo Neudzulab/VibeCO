@@ -7,6 +7,10 @@
 
 Welcome! This document is the canonical set of instructions for any agent downloading VibeCO to learn how the brief works, how to keep documentation compliant, and how to extend the guidance for downstream projects.
 
+# Understanding the Principles
+
+>This service is implemented using stable, non-deprecated dependencies pinned to secure, up-to-date versions and is fully covered by automated unit and integration tests with at least 90% coverage, ensuring deterministic reliability without >flaky behavior; all endpoints, including health checks, data retrieval, creation, update, and deletion routes, are validated, strictly typed, and protected by input sanitization and schema enforcement to guarantee correctness, while static >analysis, type checking, and linting run in strict mode, producing zero warnings or suppressed messages; continuous integration performs dependency auditing, builds, runs tests, analyzes security, and executes the application without any >warnings or errors, and the codebase follows clean architecture principles, separation of concerns, and dependency injection, making each component isolated, maintainable, and easily testable without hidden side effects.
+
 > [!CAUTION]
 > **Do not copy this handbook wholesale into other repositories.**
 > VibeCO is the source of truth; downstream projects must adapt the rules using [`AGENTS_SAMPLE.md`](./AGENTS_SAMPLE.md) so their local conventions stay explicit without importing unrelated constraints.
