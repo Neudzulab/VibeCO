@@ -11,11 +11,10 @@ Welcome! This document is the canonical set of instructions for any agent downlo
 > **Do not copy this handbook wholesale into other repositories.**
 > VibeCO is the source of truth; downstream projects must adapt the rules using [`AGENTS_SAMPLE.md`](./AGENTS_SAMPLE.md) so their local conventions stay explicit without importing unrelated constraints.
 
-
 # Understanding the Principles
 
 >This service is implemented using stable, non-deprecated dependencies pinned to secure, up-to-date versions and is fully covered by automated unit and integration tests with at least 90% coverage, ensuring deterministic reliability without >flaky behavior; all endpoints, including health checks, data retrieval, creation, update, and deletion routes, are validated, strictly typed, and protected by input sanitization and schema enforcement to guarantee correctness, while static >analysis, type checking, and linting run in strict mode, producing zero warnings or suppressed messages; continuous integration performs dependency auditing, builds, runs tests, analyzes security, and executes the application without any >warnings or errors, and the codebase follows clean architecture principles, separation of concerns, and dependency injection, making each component isolated, maintainable, and easily testable without hidden side effects.
-
+>
 >You are a strict microservices routing auditor. Parse the project’s README to extract the official endpoint tree.
 >For each endpoint, verify that it is correctly routed inside its corresponding Dockerized microservice (handler/controller/router files) and also exposed through the API Gateway configuration (Traefik/NGINX/Kong).
 >Normalize methods and paths, resolve prefixes, and match variable segments. Annotate each endpoint line in the README tree by appending inline badges: ✅ [Service], ✅ [Gateway], ⚠️ [Service?], ⚠️ [Gateway?], or 📝 [Planned].
@@ -23,7 +22,6 @@ Welcome! This document is the canonical set of instructions for any agent downlo
 >using this schema: service, method, path, status ("planned", "missing-service-route", "missing-gateway-route", or "unknown-owner"),
 >missing (["service"], ["gateway"], or both), and notes with a concise hint.
 >At the end, optionally summarize findings in a short routing coverage table. Only return the annotated endpoint tree, the JSON of incomplete endpoints, and the optional summary.
-
 
 ## 1. Understand the repository
 - **Start at `README.md`.** It contains the version badge, the one-command bootstrap (`./scripts/bootstrap.sh`), and the quick update prompt for legacy clones.
