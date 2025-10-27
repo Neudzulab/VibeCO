@@ -175,6 +175,8 @@ VibeCO/
 ├── arylen-agent/                 # Local assistant orchestration assets and docs
 ├── artifacts/                    # Generated outputs (keep tidy; archive obsolete items)
 ├── configs/
+│   ├── endpoint_validator.yaml   # Default CLI configuration targeting httpbin smoke tests
+│   ├── endpoint_validator_allowlist.yaml # Known validation gaps for the default config
 │   └── port_mapping.yaml         # Machine-readable service-to-port bindings
 ├── docs/
 │   ├── RUNBOOKS/                 # Operational playbooks
@@ -192,7 +194,12 @@ VibeCO/
 │   ├── next.py                   # Advance PLAN.md to the next milestone
 │   ├── planlib.py                # Shared planning utilities
 │   ├── refactor_guard.py         # Governance guardrails
-│   └── render.py                 # Markdown generation entry point
+│   ├── render.py                 # Markdown generation entry point
+│   └── validate_endpoints.py     # Endpoint discovery and validation CLI
+├── src/
+│   └── vibeco/
+│       ├── __init__.py           # Package exports for the endpoint validator toolkit
+│       └── endpoint_validator.py # Discovery, probing, and reporting engine
 ├── tests/                        # Pytest suites guarding the renderer
 ├── CHANGELOG.md                  # Mandatory running history of shipped changes
 ├── LICENSE                       # Repository license

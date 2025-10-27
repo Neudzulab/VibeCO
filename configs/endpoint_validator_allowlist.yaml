@@ -1,0 +1,6 @@
+# Agent Guide
+# Purpose: Track expected validation gaps for the default httpbin smoke test configuration.
+# Notes: Keep the list scoped to known issues so the workflow fails on unexpected regressions.
+
+- method: GET
+  path: /status/404
