@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Recorded the v0.7.3 release with the bundled request ledger and sync documentation refresh.
+  Last updated: Recorded the v0.7.4 release with the endpoint validator refinements and documentation refresh.
 -->
 
 # Changelog
@@ -22,6 +22,22 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Changed
 - _None_
+
+### Removed
+- _None_
+
+## [v0.7.4] - 2025-10-27
+### Added
+- Endpoint validation engine (`src/vibeco/endpoint_validator.py`) with CLI support for discovery,
+  streaming-aware probing, and Markdown/JSON reporting.
+- Default configuration, allowlist scaffolding, and documentation updates for the validator
+  workflow.
+- Continuous integration workflow exercising the endpoint validator against httpbin on pull
+  requests and a scheduled cadence.
+
+### Changed
+- Hardened payload synthesis and streaming cleanup in the endpoint validator engine to avoid
+  resource leaks and ensure JSON bodies are transmitted correctly.
 
 ### Removed
 - _None_

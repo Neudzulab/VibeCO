@@ -1,12 +1,12 @@
 <!--
   File: README.md
   Purpose: Primary onboarding and operational guide for VibeCO, including quick start flows, prompts, and architecture overview.
-  Last updated: Published the v0.7.3 release, introduced the request ledger template, and refreshed synchronization guidance links.
+  Last updated: Published the v0.7.4 release, hardened the endpoint validator streaming flow, and refreshed synchronization guidance links.
 -->
 
 # VibeCO
 
-![Version v0.7.3 badge](https://img.shields.io/badge/version-v0.7.3-7c3aed?style=for-the-badge)
+![Version v0.7.4 badge](https://img.shields.io/badge/version-v0.7.4-7c3aed?style=for-the-badge)
 [![refactor-guard](https://github.com/Neudzulab/VibeCO/actions/workflows/refactor.yml/badge.svg)](./.github/workflows/refactor.yml)
 [![daily-stability](https://github.com/Neudzulab/VibeCO/actions/workflows/daily_stability.yml/badge.svg)](./.github/workflows/daily_stability.yml)
 
@@ -97,7 +97,7 @@
 
 > [!TIP]
 > ### 🔄 Quick VibeCO Update Prompt
-> Need to refresh an older clone? Drop this compact brief to mirror the canonical checklist from release `v0.7.3` without the extra narration:
+> Need to refresh an older clone? Drop this compact brief to mirror the canonical checklist from release `v0.7.4` without the extra narration:
 >
 > ```text
 >You are updating a local project to conform to the canonical VibeCO structure and checklists.
@@ -150,7 +150,7 @@ Start with the one-command bootstrap—everything else is already scripted:
 ./scripts/bootstrap.sh
 ```
 
-Need to step through the workflow manually? Follow the annotated checklist in [`scripts/bootstrap.sh`](scripts/bootstrap.sh) or mirror the canonical walkthrough in [VibeCO v0.7.3](https://github.com/Neudzulab/VibeCO/blob/v0.7.3/README.md#quick-start).
+Need to step through the workflow manually? Follow the annotated checklist in [`scripts/bootstrap.sh`](scripts/bootstrap.sh) or mirror the canonical walkthrough in [VibeCO v0.7.4](https://github.com/Neudzulab/VibeCO/blob/v0.7.4/README.md#quick-start).
 
 ## Windows PowerShell helpers
 

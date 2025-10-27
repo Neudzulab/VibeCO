@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide agent operating rules for VibeCO.
-  Last updated: Documented the v0.7.3 release, embedded the request ledger expectation, and refreshed canonical references.
+  Last updated: Documented the v0.7.4 release, captured the endpoint validator hardening, and refreshed canonical references.
 -->
 
 # VibeCO Agent Handbook
@@ -40,7 +40,7 @@ Welcome! This document is the canonical set of instructions for any agent downlo
 
 ## 3. Keep the automation in sync
 - **Quick update prompt:** The canonical prompt lives in the README under “Working from an older clone…”. Verify that the repository URL and semver guidance match the latest release when you cut a new version. Any downstream project should reference this prompt verbatim unless it documents specific overrides.
-- **Version badge:** Update the badge in `README.md` and the header comment whenever you advance the version (current release: `v0.7.3`).
+- **Version badge:** Update the badge in `README.md` and the header comment whenever you advance the version (current release: `v0.7.4`).
 - **Release metadata:** Reflect new releases in `CHANGELOG.md` following the Keep a Changelog format and semantic versioning described in `docs/VERSIONING_PLAN.md`.
 - **PowerShell test harness:** Mirror changes in the pytest package layout by updating `scripts/test-*.ps1` and `scripts/lib/TestHarness.ps1`, keep the junitxml summary output intact, and add new module-specific runners whenever suites are introduced or retired.
 

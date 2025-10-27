@@ -429,17 +429,19 @@ class EndpointValidator:
     def should_skip(self, endpoint: EndpointDefinition) -> bool:
         return endpoint.is_destructive() and not self.config.include_destructive
 
-    def _prepare_payload(self, endpoint: EndpointDefinition) -> tuple[dict[str, str], dict[str, Any] | None, dict[str, Any] | None]:
+    def _prepare_payload(
+        self, endpoint: EndpointDefinition
+    ) -> tuple[dict[str, str], Any | None, Any | None]:
         headers: dict[str, str] = {}
-        json_payload: dict[str, Any] | None = None
-        data_payload: dict[str, Any] | None = None
+        json_payload: Any | None = None
+        data_payload: Any | None = None
 
         if endpoint.schema or endpoint.method in {"POST", "PUT", "PATCH"}:
             payload, inferred_type = infer_request_body(endpoint.schema)
-            if isinstance(payload, dict):
+            if isinstance(payload, (dict, list)):
                 json_payload = payload
-            else:
-                data_payload = payload  # type: ignore[assignment]
+            elif payload is not None:
+                data_payload = payload
             content_type = endpoint.content_type or inferred_type or "application/json"
             if content_type:
                 headers["Content-Type"] = content_type
@@ -517,7 +519,11 @@ class EndpointValidator:
                 time.sleep(self.config.backoff_factor * (2**attempt))
             attempt += 1
 
-        excerpt, content_type = self._read_excerpt(response)
+        try:
+            excerpt, content_type = self._read_excerpt(response)
+        finally:
+            if response is not None:
+                response.close()
         flagged, reason, likely, fix, json_issue = self._evaluate_response(response, error)
         status_code = response.status_code if response is not None else None
         ok = response.ok if response is not None else False
