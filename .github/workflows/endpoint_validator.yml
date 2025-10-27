@@ -1,0 +1,40 @@
+# Agent Guide
+# Purpose: Execute the endpoint validator CLI during pull requests and on a nightly schedule
+#          so regressions in remote API compatibility are detected early.
+# Notes: Targets the public httpbin service using the default configuration shipped in
+#        configs/endpoint_validator.yaml; adjust BASE_URL via the config for different envs.
+
+name: endpoint-validator
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/validate_endpoints.py'
+      - 'src/vibeco/**'
+      - 'configs/endpoint_validator.yaml'
+      - 'configs/endpoint_validator_allowlist.yaml'
+      - '.github/workflows/endpoint_validator.yml'
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run endpoint validator
+        run: |
+          python scripts/validate_endpoints.py --config configs/endpoint_validator.yaml
