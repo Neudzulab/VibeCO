@@ -1,21 +1,26 @@
 # Agent Guide
 # Purpose: Default configuration for the endpoint validator CLI targeting the public httpbin
 #          reference service used in CI and local dry runs.
-# Notes: Adjust the base_url and seeds when validating a different environment; keep allowlist
-#        entries in configs/endpoint_validator_allowlist.yaml so CI can track expected gaps.
+# Notes: Demonstrates the multi-target format (via `targets`) so downstream microservice stacks
+#        can extend the list without redefining defaults; keep allowlist entries in
+#        configs/endpoint_validator_allowlist.yaml so CI can track expected gaps.
 
-base_url: https://httpbin.org
-seeds:
-  - /get
-  - /status/404
-  - /stream/5
-headers: {}
-include_destructive: false
-timeout: 8.0
-max_retries: 1
-backoff_factor: 1.5
-concurrency: 4
-rate_limit_per_second: 2.0
-allowlist: configs/endpoint_validator_allowlist.yaml
 report: reports/endpoint_report.md
 json: reports/endpoint_report.json
+defaults:
+  headers: {}
+  include_destructive: false
+  timeout: 8.0
+  max_retries: 1
+  backoff_factor: 1.5
+  concurrency: 4
+  rate_limit_per_second: 2.0
+  seeds:
+    - /status/404
+targets:
+  - name: httpbin
+    base_url: https://httpbin.org
+    seeds:
+      - /get
+      - /stream/5
+    allowlist: configs/endpoint_validator_allowlist.yaml

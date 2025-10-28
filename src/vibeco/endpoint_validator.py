@@ -93,6 +93,7 @@ class EndpointValidationReport:
     results: list[EndpointResult]
     failures: list[EndpointResult]
     allowlisted_failures: list[EndpointResult]
+    label: str | None = None
 
     def to_json(self) -> dict[str, Any]:
         return {
@@ -101,6 +102,7 @@ class EndpointValidationReport:
             "results": [result.__dict__ for result in self.results],
             "failures": [result.__dict__ for result in self.failures],
             "allowlisted_failures": [result.__dict__ for result in self.allowlisted_failures],
+            "label": self.label,
         }
 
 
@@ -118,6 +120,39 @@ class ValidatorConfig:
     concurrency: int = 4
     rate_limit_per_second: float = 4.0
     allowlist: set[tuple[str, str]] = field(default_factory=set)
+    label: str | None = None
+
+
+@dataclass
+class BatchValidationReport:
+    """Aggregate multiple endpoint validation reports into a single batch summary."""
+
+    reports: list[EndpointValidationReport]
+
+    @property
+    def total_endpoints(self) -> int:
+        return sum(len(report.results) for report in self.reports)
+
+    @property
+    def total_failures(self) -> int:
+        return sum(len(report.failures) for report in self.reports)
+
+    @property
+    def total_allowlisted(self) -> int:
+        return sum(len(report.allowlisted_failures) for report in self.reports)
+
+    def to_json(self) -> dict[str, Any]:
+        labels = [report.label or report.base_url for report in self.reports]
+        return {
+            "summary": {
+                "services": labels,
+                "total_services": len(self.reports),
+                "total_endpoints": self.total_endpoints,
+                "total_failures": self.total_failures,
+                "total_allowlisted_failures": self.total_allowlisted,
+            },
+            "reports": [report.to_json() for report in self.reports],
+        }
 
 
 class RateLimiter:
@@ -565,34 +600,12 @@ class EndpointValidator:
             results=results,
             failures=failures,
             allowlisted_failures=allowlisted_failures,
+            label=self.config.label,
         )
         return report
 
     def build_markdown_report(self, report: EndpointValidationReport) -> str:
-        header = [
-            "## Endpoint validation report",
-            f"- Base URL: {report.base_url}",
-            f"- Generated: {report.generated_at}",
-            f"- Total endpoints checked: {len(report.results)}",
-            f"- Failures: {len(report.failures)}",
-        ]
-        if report.allowlisted_failures:
-            header.append(f"- Allowlisted failures: {len(report.allowlisted_failures)}")
-        lines = header + ["", "| Method | Path | Status | Latency (s) | Excerpt | Likely cause | Suggested fix |", "| --- | --- | --- | --- | --- | --- | --- |"]
-        if not report.failures and not report.allowlisted_failures:
-            lines.append("| ✅ | No failures detected | | | | | |")
-        else:
-            for result in report.results:
-                if not result.flagged:
-                    continue
-                status = result.status_code or "N/A"
-                latency = f"{result.latency:.2f}" if result.latency is not None else "-"
-                badge = "(allowlisted)" if result.ignored else ""
-                excerpt = result.excerpt or ""
-                lines.append(
-                    f"| {result.method} | {result.path} | {status} {badge} | {latency} | {excerpt} | {result.likely_cause} | {result.suggested_fix} |"
-                )
-        return "\n".join(lines) + "\n"
+        return render_markdown_report(report)
 
 
 class concurrent_executor:
@@ -630,3 +643,89 @@ def load_allowlist(path: str | None) -> set[tuple[str, str]]:
 def run_validator(config: ValidatorConfig) -> EndpointValidationReport:
     validator = EndpointValidator(config)
     return validator.run()
+
+
+def render_markdown_report(
+    report: EndpointValidationReport,
+    heading: str = "## Endpoint validation report",
+) -> str:
+    """Render a single validation report as Markdown."""
+
+    header = [
+        heading,
+        f"- Base URL: {report.base_url}",
+        f"- Generated: {report.generated_at}",
+        f"- Total endpoints checked: {len(report.results)}",
+        f"- Failures: {len(report.failures)}",
+    ]
+    if report.allowlisted_failures:
+        header.append(f"- Allowlisted failures: {len(report.allowlisted_failures)}")
+    if report.label:
+        header.append(f"- Label: {report.label}")
+    lines = header + [
+        "",
+        "| Method | Path | Status | Latency (s) | Excerpt | Likely cause | Suggested fix |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    if not report.failures and not report.allowlisted_failures:
+        lines.append("| ✅ | No failures detected | | | | | |")
+    else:
+        for result in report.results:
+            if not result.flagged:
+                continue
+            status = result.status_code or "N/A"
+            latency = f"{result.latency:.2f}" if result.latency is not None else "-"
+            badge = "(allowlisted)" if result.ignored else ""
+            excerpt = result.excerpt or ""
+            lines.append(
+                f"| {result.method} | {result.path} | {status} {badge} | {latency} | {excerpt} | {result.likely_cause} | {result.suggested_fix} |"
+            )
+    return "\n".join(lines) + "\n"
+
+
+def build_batch_markdown_report(batch_report: BatchValidationReport) -> str:
+    """Create a Markdown document summarising a batch validation run."""
+
+    summary_lines = [
+        "## Endpoint validation batch summary",
+        f"- Total services: {len(batch_report.reports)}",
+        f"- Total endpoints checked: {batch_report.total_endpoints}",
+        f"- Total failures: {batch_report.total_failures}",
+    ]
+    if batch_report.total_allowlisted:
+        summary_lines.append(f"- Allowlisted failures: {batch_report.total_allowlisted}")
+    summary_lines.extend(
+        [
+            "",
+            "| Service | Base URL | Endpoints | Failures | Allowlisted |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for report in batch_report.reports:
+        label = report.label or report.base_url
+        summary_lines.append(
+            f"| {label} | {report.base_url} | {len(report.results)} | {len(report.failures)} | {len(report.allowlisted_failures)} |"
+        )
+
+    detail_sections: list[str] = []
+    for report in batch_report.reports:
+        label = report.label or report.base_url
+        detail_sections.append(f"\n### {label}\n")
+        detail_sections.append(
+            render_markdown_report(
+                report,
+                heading="#### Endpoint validation report",
+            )
+        )
+
+    return "\n".join(summary_lines + detail_sections)
+
+
+def run_batch(configs: Iterable[ValidatorConfig]) -> BatchValidationReport:
+    """Execute validators for multiple services sequentially."""
+
+    reports: list[EndpointValidationReport] = []
+    for config in configs:
+        validator = EndpointValidator(config)
+        reports.append(validator.run())
+    return BatchValidationReport(reports=reports)
