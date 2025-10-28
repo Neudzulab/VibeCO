@@ -6,17 +6,25 @@
 """Endpoint validation toolkit for VibeCO automation workflows."""
 
 from .endpoint_validator import (  # noqa: F401
+    BatchValidationReport,
     EndpointDefinition,
     EndpointResult,
     EndpointValidationReport,
     ValidatorConfig,
+    build_batch_markdown_report,
+    render_markdown_report,
+    run_batch,
     run_validator,
 )
 
 __all__ = [
+    "BatchValidationReport",
     "EndpointDefinition",
     "EndpointResult",
     "EndpointValidationReport",
     "ValidatorConfig",
+    "build_batch_markdown_report",
+    "render_markdown_report",
+    "run_batch",
     "run_validator",
 ]

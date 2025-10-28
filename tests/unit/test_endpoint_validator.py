@@ -19,14 +19,20 @@ for candidate in (PROJECT_ROOT, SRC_ROOT):
     if str(candidate) not in sys.path:
         sys.path.insert(0, str(candidate))
 
+import vibeco.endpoint_validator as endpoint_module
+
 from vibeco.endpoint_validator import (
+    BatchValidationReport,
     EndpointDefinition,
     EndpointResult,
     EndpointValidationReport,
     EndpointValidator,
     ValidatorConfig,
+    build_batch_markdown_report,
     extract_api_like_paths,
     infer_request_body,
+    render_markdown_report,
+    run_batch,
     load_allowlist,
     normalize_path,
 )
@@ -118,3 +124,112 @@ def test_validator_skip_destructive_by_default() -> None:
 
     validator_allow = EndpointValidator(ValidatorConfig(base_url="https://api.example.com", include_destructive=True))
     assert validator_allow.should_skip(endpoint) is False
+
+
+def _sample_result(
+    method: str = "GET",
+    path: str = "/api/v1/items",
+    flagged: bool = False,
+    ignored: bool = False,
+) -> EndpointResult:
+    return EndpointResult(
+        method=method,
+        path=path,
+        url=f"https://service.example.com{path}",
+        status_code=200 if not flagged else 404,
+        latency=0.1,
+        ok=not flagged,
+        flagged=flagged,
+        reason="OK" if not flagged else "404 Not Found",
+        excerpt="",
+        likely_cause="",
+        suggested_fix="",
+        ignored=ignored,
+    )
+
+
+def test_render_markdown_report_with_custom_heading() -> None:
+    report = EndpointValidationReport(
+        base_url="https://service.example.com",
+        generated_at="2025-01-01T00:00:00Z",
+        results=[_sample_result()],
+        failures=[],
+        allowlisted_failures=[],
+        label="service-a",
+    )
+
+    markdown = render_markdown_report(report, heading="### Custom heading")
+
+    assert "### Custom heading" in markdown
+    assert "Label: service-a" in markdown
+
+
+def test_batch_validation_report_summary_and_markdown() -> None:
+    failure_result = _sample_result(flagged=True)
+    allowlisted_result = _sample_result(flagged=True, ignored=True)
+
+    report_one = EndpointValidationReport(
+        base_url="https://service-a.example.com",
+        generated_at="2025-01-01T00:00:00Z",
+        results=[_sample_result(), failure_result],
+        failures=[failure_result],
+        allowlisted_failures=[],
+        label="service-a",
+    )
+    report_two = EndpointValidationReport(
+        base_url="https://service-b.example.com",
+        generated_at="2025-01-01T00:05:00Z",
+        results=[_sample_result(), allowlisted_result],
+        failures=[],
+        allowlisted_failures=[allowlisted_result],
+        label="service-b",
+    )
+
+    batch = BatchValidationReport(reports=[report_one, report_two])
+
+    assert batch.total_endpoints == 4
+    assert batch.total_failures == 1
+    assert batch.total_allowlisted == 1
+
+    payload = batch.to_json()
+    assert payload["summary"]["total_services"] == 2
+    assert payload["reports"][0]["label"] == "service-a"
+
+    markdown = build_batch_markdown_report(batch)
+    assert "Endpoint validation batch summary" in markdown
+    assert "| service-a | https://service-a.example.com" in markdown
+
+
+def test_run_batch_invokes_endpoint_validator(monkeypatch) -> None:
+    captured_configs: list[ValidatorConfig] = []
+
+    class DummyValidator:
+        def __init__(self, config: ValidatorConfig) -> None:
+            self.config = config
+            captured_configs.append(config)
+
+        def run(self) -> EndpointValidationReport:
+            result = _sample_result()
+            return EndpointValidationReport(
+                base_url=self.config.base_url,
+                generated_at="2025-01-01T00:00:00Z",
+                results=[result],
+                failures=[],
+                allowlisted_failures=[],
+                label=self.config.label,
+            )
+
+    monkeypatch.setattr(endpoint_module, "EndpointValidator", DummyValidator)
+
+    configs = [
+        ValidatorConfig(base_url="https://service-a.example.com", label="service-a"),
+        ValidatorConfig(base_url="https://service-b.example.com", label="service-b"),
+    ]
+
+    batch = run_batch(configs)
+
+    assert [config.label for config in captured_configs] == ["service-a", "service-b"]
+    assert [report.base_url for report in batch.reports] == [
+        "https://service-a.example.com",
+        "https://service-b.example.com",
+    ]

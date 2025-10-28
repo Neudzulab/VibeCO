@@ -19,9 +19,12 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
   workflow.
 - Continuous integration workflow exercising the endpoint validator against httpbin on pull
   requests and a scheduled cadence.
+- Batch validation capabilities enabling a single configuration to orchestrate multiple
+  microservice or gateway checks with shared summary reporting.
 
 ### Changed
-- _None_
+- CLI now supports per-run labels and multi-target YAML files, emitting consolidated Markdown
+  and JSON outputs for heterogeneous environments.
 
 ### Removed
 - _None_
