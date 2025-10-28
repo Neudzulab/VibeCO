@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Recorded the v0.7.4 release with the endpoint validator refinements and documentation refresh.
+  Last updated: Recorded the v0.7.4 release with the endpoint validator refinements, documentation refresh, and the TODO capture principle update in the root agent guide.
 -->
 
 # Changelog
@@ -25,6 +25,7 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Changed
 - CLI now supports per-run labels and multi-target YAML files, emitting consolidated Markdown
   and JSON outputs for heterogeneous environments.
+- Documented the requirement to capture large or time-intensive work as TODO entries in the canonical task list within the root agent guide.
 
 ### Removed
 - _None_

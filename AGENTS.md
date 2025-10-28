@@ -1,6 +1,7 @@
 <!--
   Scope: Repository-wide agent operating rules for VibeCO.
-  Last updated: Documented the v0.7.4 release, captured the endpoint validator hardening, and refreshed canonical references.
+  Last updated: Documented the v0.7.4 release, captured the endpoint validator hardening, refreshed canonical references, and
+  added the TODO capture principle for large or time-intensive work so it is tracked before deferral.
 -->
 
 # VibeCO Agent Handbook
@@ -59,6 +60,9 @@ Welcome! This document is the canonical set of instructions for any agent downlo
 5. **Agent guide sync**
    - Extend this root file or add scoped guides beside new directories to capture unique rules.
    - Document exceptions instead of leaving future contributors to guess them.
+6. **TODO capture for large efforts**
+   - When you identify work that is large in scope or expected to take significant time, create or update the canonical task list
+     with a TODO entry before deferring it so stakeholders can track ownership and scheduling.
 
 > **Audit tip:** Before finalising a commit, run `git status -s` and confirm that every file in the diff satisfies the checklist above.
 
