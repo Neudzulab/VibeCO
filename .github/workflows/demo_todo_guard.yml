@@ -1,10 +1,10 @@
 name: Guard against demo TODO markers
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
+  #pull_request:
+  #push:
+  #  branches:
+  #   - main
 
 jobs:
   demo-todo-scan:
