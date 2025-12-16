@@ -7,15 +7,15 @@
 name: endpoint-validator
 
 on:
-  pull_request:
-    paths:
-      - 'scripts/validate_endpoints.py'
-      - 'src/vibeco/**'
-      - 'configs/endpoint_validator.yaml'
-      - 'configs/endpoint_validator_allowlist.yaml'
-      - '.github/workflows/endpoint_validator.yml'
-  schedule:
-    - cron: '0 3 * * *'
+  #pull_request:
+  #  paths:
+  #    - 'scripts/validate_endpoints.py'
+  #    - 'src/vibeco/**'
+  #    - 'configs/endpoint_validator.yaml'
+  #    - 'configs/endpoint_validator_allowlist.yaml'
+  #    - '.github/workflows/endpoint_validator.yml'
+  #schedule:
+  #  - cron: '0 3 * * *'
   workflow_dispatch:
 
 jobs:
