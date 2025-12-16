@@ -1,8 +1,8 @@
 name: refactor-guard
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, labeled]
-    branches: [main, master]
+  #pull_request:
+  #  types: [opened, synchronize, reopened, labeled]
+  #  branches: [main, master]
 jobs:
   guard:
     if: contains(github.event.pull_request.labels.*.name, 'refactor')
