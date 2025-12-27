@@ -1,7 +1,7 @@
 <!--
   Scope: Repository-wide agent operating rules for VibeCO.
   Last updated: Documented the v0.7.4 release, captured the endpoint validator hardening, refreshed canonical references, and
-  added the TODO capture principle for large or time-intensive work so it is tracked before deferral.
+  expanded TODO capture guidance with the persistent TODO tracker location and maintenance rules.
 -->
 
 # VibeCO Agent Handbook
@@ -63,6 +63,11 @@ Welcome! This document is the canonical set of instructions for any agent downlo
 6. **TODO capture for large efforts**
    - When you identify work that is large in scope or expected to take significant time, create or update the canonical task list
      with a TODO entry before deferring it so stakeholders can track ownership and scheduling.
+7. **Persistent TODO tracker**
+   - Keep the checkbox-based backlog in `TODO.md` up to date, inserting new developments beneath unfinished items or alongside
+     their closest related tasks instead of shuffling completed entries.
+   - Refresh entries as progress occurs so agents prioritise the tracker first, and ensure orchestrators backfill the next
+     efficiency-focused TODO as soon as a sequence wraps up.
 
 > **Audit tip:** Before finalising a commit, run `git status -s` and confirm that every file in the diff satisfies the checklist above.
 
