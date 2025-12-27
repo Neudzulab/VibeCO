@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Recorded the v0.7.4 release with the endpoint validator refinements, documentation refresh, and the TODO capture principle update in the root agent guide.
+  Last updated: Recorded the v0.7.4 release with the endpoint validator refinements, documentation refresh, the TODO capture principle update in the root agent guide, and the persistent TODO tracker rollout.
 -->
 
 # Changelog
@@ -21,11 +21,13 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
   requests and a scheduled cadence.
 - Batch validation capabilities enabling a single configuration to orchestrate multiple
   microservice or gateway checks with shared summary reporting.
+- Repository TODO tracker (`TODO.md`) capturing the checkbox-first backlog agents must maintain.
 
 ### Changed
 - CLI now supports per-run labels and multi-target YAML files, emitting consolidated Markdown
   and JSON outputs for heterogeneous environments.
 - Documented the requirement to capture large or time-intensive work as TODO entries in the canonical task list within the root agent guide.
+- Expanded agent guidance to point at the persistent TODO tracker and outline placement rules for new entries.
 
 ### Removed
 - _None_
