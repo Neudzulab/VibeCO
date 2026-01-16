@@ -1,120 +1,47 @@
 <!--
   Scope: Repository-wide agent operating rules for VibeCO.
-  Last updated: Documented the v0.7.4 release, captured the endpoint validator hardening, refreshed canonical references, and
-  expanded TODO capture guidance with the persistent TODO tracker location and maintenance rules.
+  Last updated: Condensed the handbook to stay under 100 lines and clarified that changes belong in CHANGELOG.md.
 -->
 
-# VibeCO Agent Handbook
+# VibeCO Agent Handbook (Condensed)
 
-Welcome! This document is the canonical set of instructions for any agent downloading VibeCO to learn how the brief works, how to keep documentation compliant, and how to extend the guidance for downstream projects.
+Welcome! Follow these rules when working in this repo.
 
-> [!CAUTION]
-> **Do not copy this handbook wholesale into other repositories.**
-> VibeCO is the source of truth; downstream projects must adapt the rules using [`AGENTS_SAMPLE.md`](./AGENTS_SAMPLE.md) so their local conventions stay explicit without importing unrelated constraints.
+## Core principles
+- Use stable, non-deprecated dependencies; keep tests, linting, and type checks strict and warning-free.
+- Keep architecture clean: modular, DI-friendly, and maintainable.
+- Keep files under 1000 lines; split into logical modules unless critically impossible.
+- Do not add a changelog section here; record changes in `CHANGELOG.md`.
+- Keep this file under 100 lines.
 
-# Understanding the Principles
+## Microservice routing audit (only when the plan is microservices)
+- Parse the README endpoint tree.
+- Verify each endpoint exists in its service routes and the API gateway configuration.
+- Append inline badges to each endpoint line: ✅ [Service], ✅ [Gateway], ⚠️ [Service?], ⚠️ [Gateway?], or 📝 [Planned].
+- Output a JSON array with missing/planned endpoints (service, method, path, status, missing, notes).
+- Optional: short coverage table. Do not delete existing README text.
 
->This service is implemented using stable, non-deprecated dependencies pinned to secure, up-to-date versions and is fully covered by automated unit and integration tests with at least 90% coverage, ensuring deterministic reliability without >flaky behavior; all endpoints, including health checks, data retrieval, creation, update, and deletion routes, are validated, strictly typed, and protected by input sanitization and schema enforcement to guarantee correctness, while static >analysis, type checking, and linting run in strict mode, producing zero warnings or suppressed messages; continuous integration performs dependency auditing, builds, runs tests, analyzes security, and executes the application without any >warnings or errors, and the codebase follows clean architecture principles, separation of concerns, and dependency injection, making each component isolated, maintainable, and easily testable without hidden side effects.
->
->**If the plan is established with microservice architecture**
->You are a strict microservices routing auditor. Parse the project’s README to extract the official endpoint tree.
->For each endpoint, verify that it is correctly routed inside its corresponding
->Dockerized microservice (handler/controller/router files) and also exposed through the API Gateway configuration (Traefik/NGINX/Kong).
->Normalize methods and paths, resolve prefixes, and match variable segments.
->Annotate each endpoint line in the README tree by appending inline badges: ✅ [Service], ✅ [Gateway], ⚠️ [Service?], ⚠️ [Gateway?], or 📝 [Planned].
->Do not delete or rewrite existing text. Then output a JSON array in English containing any planned or missing endpoints
->using this schema: service, method, path, status ("planned", "missing-service-route", "missing-gateway-route", or "unknown-owner"),
->missing (["service"], ["gateway"], or both), and notes with a concise hint.
->At the end, optionally summarize findings in a short routing coverage table.
->Only return the annotated endpoint tree, the JSON of incomplete endpoints, and the optional summary.
->**end of microservice principle**
+## Start here
+- Read `README.md` first, then `PROJECT_SUMMARY.md` and `PLAN.md`.
+- Review `docs/` and `scripts/` for automation and governance.
 
-## 1. Understand the repository
-- **Start at `README.md`.** It contains the version badge, the one-command bootstrap (`./scripts/bootstrap.sh`), and the quick update prompt for legacy clones.
-- **Skim `PROJECT_SUMMARY.md` and `PLAN.md`.** These files describe the roadmap and current milestones—mirror any edits you make here in the changelog.
-- **Tour `docs/` and `scripts/`.** They hold the rendering template, automation helpers, and governance playbooks that every derivative project should follow.
+## Bootstrap & checks
+- Bootstrap: `./scripts/bootstrap.sh` or `make bootstrap`.
+- Render: `make render` or `python scripts/render.py`.
+- Run tests: `pytest` before publishing updates.
 
-## 2. Bootstrap and explore VibeCO locally
-1. Run `./scripts/bootstrap.sh` (or `make bootstrap`) to install dependencies, seed the sample `project.yaml`, and render the summary.
-2. Re-render on demand with `make render` or `python scripts/render.py` to confirm that changes to the data model appear in `PROJECT_SUMMARY.md`.
-3. Execute `pytest` before publishing updates to guarantee the renderer and supporting utilities stay reliable.
+## Contribution hygiene
+1. **File headers**: add/update purpose headers; note what changed and why.
+2. **README tree**: sync when directories/services change.
+3. **Changelog**: log meaningful updates in `CHANGELOG.md`.
+4. **Roadmap**: update `PLAN.md` and `PROJECT_SUMMARY.md` when scope/owners change.
+5. **Agent guidance**: add scoped AGENTS files for new directories.
+6. **TODOs**: record large efforts in `TODO.md` near related tasks.
 
-## 3. Keep the automation in sync
-- **Quick update prompt:** The canonical prompt lives in the README under “Working from an older clone…”. Verify that the repository URL and semver guidance match the latest release when you cut a new version. Any downstream project should reference this prompt verbatim unless it documents specific overrides.
-- **Version badge:** Update the badge in `README.md` and the header comment whenever you advance the version (current release: `v0.7.4`).
-- **Release metadata:** Reflect new releases in `CHANGELOG.md` following the Keep a Changelog format and semantic versioning described in `docs/VERSIONING_PLAN.md`.
-- **PowerShell test harness:** Mirror changes in the pytest package layout by updating `scripts/test-*.ps1` and `scripts/lib/TestHarness.ps1`, keep the junitxml summary output intact, and add new module-specific runners whenever suites are introduced or retired.
+## Guidance for downstream projects
+- Use `AGENTS_SAMPLE.md` as a starting template; adapt to the host project.
+- Merge local rules explicitly; call out precedence when VibeCO rules win.
 
-## 4. Contribution hygiene (applies to every change)
-1. **File headers**
-   - Prepend purpose headers to any file you create or substantially modify, using the native comment syntax.
-   - Include what changed and why when updating an existing file.
-2. **README architecture tree**
-   - Synchronise the tree in `README.md` whenever directories or services are added, renamed, or removed.
-   - Annotate planned/in-progress components so readers understand maturity at a glance.
-3. **CHANGELOG discipline**
-   - Log every meaningful update under the relevant semantic version section.
-   - Call out documentation, roadmap, and agent guide changes explicitly so audits stay effortless.
-4. **Roadmap alignment**
-   - Update `PLAN.md` and the roadmap inside `PROJECT_SUMMARY.md` whenever scope or owners shift.
-5. **Agent guide sync**
-   - Extend this root file or add scoped guides beside new directories to capture unique rules.
-   - Document exceptions instead of leaving future contributors to guess them.
-6. **TODO capture for large efforts**
-   - When you identify work that is large in scope or expected to take significant time, create or update the canonical task list
-     with a TODO entry before deferring it so stakeholders can track ownership and scheduling.
-7. **Persistent TODO tracker**
-   - Keep the checkbox-based backlog in `TODO.md` up to date, inserting new developments beneath unfinished items or alongside
-     their closest related tasks instead of shuffling completed entries.
-   - Refresh entries as progress occurs so agents prioritise the tracker first, and ensure orchestrators backfill the next
-     efficiency-focused TODO as soon as a sequence wraps up.
-
-> **Audit tip:** Before finalising a commit, run `git status -s` and confirm that every file in the diff satisfies the checklist above.
-
-## 5. Extending guidance for other projects
-- Use `AGENTS_SAMPLE.md` (included in the repository root) as the starter template when you need to craft instructions for a derivative project.
-- Rename the file to suit the host project, but keep sections covering onboarding, tooling, documentation hygiene, release cadence, and the quick update prompt.
-- When an existing project already has agent instructions, merge in the VibeCO expectations and clearly state which rules take precedence if conflicts arise.
-- Replace or tailor examples so that contributors understand the downstream project context—never leave the VibeCO-specific narrative in place.
-
-## 6. Continuing an `AGENTS.md` update
-When asked for “AGENTS.md devam”, proceed in this order:
-1. **Collect the current state.** Read every `AGENTS.md` from the repository root down to the target directory so you understand inherited rules and potential conflicts.
-2. **Prioritise top-level gaps.** Resolve repository-wide issues (naming conventions, versioning, tooling) before narrowing to directory-specific refinements.
-3. **Map orphan structures.** Identify directories, modules, or workflows lacking guidance. Note whether they need fresh instructions or can inherit from parents.
-4. **Detect inconsistencies.** Flag mismatched terminology or contradictory steps. Capture each discrepancy alongside a proposed fix.
-5. **Confirm with the requester.** Only request a `clarification.yaml` when you can list the precise decision points that block progress. Continue with other actionable work while waiting for the response.
-
-### Requesting `clarification.yaml`
-Ask the requester to complete a clarification YAML shaped like the example below whenever the team is split between well-defined alternatives:
-```yaml
-decision_context: "Gateway service port selection"
-options:
-  - value: 5005
-    rationale: "Matches existing staging traffic configuration"
-  - value: 5020
-    rationale: "Aligns with production firewall rules"
-selected_option: 5005
-follow_up_tasks:
-  - "Update gateway deployment manifests"
-additional_notes: |
-  Add any contextual details that affect how the instructions should be finalized. Limit requests to the specific fork-in-the-road you are addressing right now.
-```
-Wait for the completed file before finalising the instructions that depend on the decision, but keep progressing on independent tasks in parallel.
-
-> **Usage guardrails:**
-> - Keep requests situational—each `clarification.yaml` should map to a single decision point rather than a general status update.
-> - If the requester provides both options, pick the one they highlighted as final and document it before moving forward.
-> - Avoid serial requests that block the project; only ask for the file when you can list the competing options and the downstream change that depends on the answer.
-
-## 7. Documenting resolutions
-- Summarise accepted solutions directly in the relevant `AGENTS.md` scopes and link to the authoritative `clarification.yaml` when possible.
-- Keep a running changelog either in this file or in `CHANGELOG.md` describing how gaps were resolved, which conventions won, and any open follow-ups.
-- Annotate why VibeCO precedence applies whenever local rules diverge so future maintainers know which directives cannot be overridden.
-
-## 8. VibeCO usage directives
-- Prefer VibeCO-native tooling (`make`, `scripts/`, and `project.yaml` workflows) when interacting with the project.
-- Link to supporting documentation under `docs/` or `PROJECT_SUMMARY.md` whenever you add new automation steps or conventions.
-- Keep this handbook in sync with code changes—especially when introducing directories, commands, or policy updates.
-
-Feel free to adapt these directions for subdirectories, but always retain the onboarding, automation, and hygiene expectations described above.
+## Clarification workflow
+- Request `clarification.yaml` only for concrete decision points; keep working on other tasks.
+- If options are provided, pick the selected option and document it.
