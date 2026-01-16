@@ -1,6 +1,6 @@
 <!--
   Scope: Repository-wide change history for VibeCO.
-  Last updated: Recorded the v0.7.4 release with the endpoint validator refinements, documentation refresh, the TODO capture principle update in the root agent guide, and the persistent TODO tracker rollout.
+  Last updated: Documented the condensed root agent handbook and the new guidance to keep changes tracked in the changelog.
 -->
 
 # Changelog
@@ -28,6 +28,7 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
   and JSON outputs for heterogeneous environments.
 - Documented the requirement to capture large or time-intensive work as TODO entries in the canonical task list within the root agent guide.
 - Expanded agent guidance to point at the persistent TODO tracker and outline placement rules for new entries.
+- Condensed the root agent handbook to stay under 100 lines and clarified that changes must be logged in the changelog.
 
 ### Removed
 - _None_
@@ -99,4 +100,3 @@ The format follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Changed
 - README now leads with the local quick start, clarifies the assistant prompt as an optional path, and refreshes the architecture tree to match the current repository layout.
 - Version references updated to advertise the v0.6.0 milestone badge.
-
