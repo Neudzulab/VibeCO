@@ -1,0 +1,11 @@
+{
+  "results": [
+    {"path": "/api/v1/health"},
+    {"path": "/api/v1/users"},
+    {"path": "/api/v1/orders"},
+    {"path": "/api/v1/payments"}
+  ],
+  "failures": [
+    {"path": "/api/v1/payments"}
+  ]
+}

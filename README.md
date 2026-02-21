@@ -119,6 +119,20 @@
 >
 > Re-run after major policy updates to keep legacy workspaces compliant.
 
+## Endpoint Health Score CLI
+
+Compute a measurable health score from an endpoint validator JSON report.
+
+```bash
+PYTHONPATH=src python -m vibeco.health_score tests/fixtures/sample_report.json
+```
+
+Example output:
+
+```text
+total=4 failures=1 health_score=75
+```
+
 Welcome to the 2025 edition of **VibeCO (Vibe Coding Orchestrator)**—a reusable project brief template designed so that every stakeholder immediately understands what you are building, why it matters, and how to unlock the next phase of work. Clone this repository, inject your own context, and publish a polished brief that keeps your team aligned from day zero.
 
 ## Why this repository exists
